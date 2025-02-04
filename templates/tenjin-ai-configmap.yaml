@@ -7,7 +7,7 @@ metadata:
 data:
   HOST: "http://192.168.16.88"
   PORT: "30557"
-  OPENAI_API_KEY: ""
+  OPENAI_API_KEY: "sk-tenjin-enterprise-JDugfTTh2N6jIlnyvmHLT3BlbkFJFQsFzNDznREGzwmHuBRc"
   db_user: "yethi"
   db_password: "Yethi123"
   db_host: "{{ .Release.Name }}-postgres"
