@@ -1,0 +1,27 @@
+tenjin:
+  persistence:
+    size: "5Gi" # Size of the storage
+    storageClassName: "standard" # Name of the storage class (adjust based on your cluster)
+  service:
+    type: NodePort
+    port: 8080
+elasticsearch:
+  config:
+    bootstrap_memory_lock: true
+    ES_JAVA_OPTS: "-Xms512m -Xmx2G"
+  persistence:
+    accessModes: ReadWriteOnce
+    storageClassName: standard
+    size: 5Gi
+postgres:
+  persistence:
+    size: 10Gi # Storage size
+    accessModes: ReadWriteOnce # Access mode
+    storageClassName: standard # StorageClass for dynamic provisioning
+environment:
+  POSTGRES_DB: tenjin
+  POSTGRES_USER: yethi
+  POSTGRES_PASSWORD: Yethi123
+  DEFAULT_USER_PASSWORD: Welcome@123
+  TENJIN_HOST_NAME: http://localhost
+  TENJIN_ALLOWED_URL: http://localhost

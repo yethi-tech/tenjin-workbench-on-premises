@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-tenjin-ai
+  labels:
+    app: {{ .Release.Name }}-tenjin-ai
+spec:
+  selector:
+    app: tenjin-ai
+  ports:
+    - protocol: TCP
+      port: 8022
+      targetPort: 8022
+  type: ClusterIP

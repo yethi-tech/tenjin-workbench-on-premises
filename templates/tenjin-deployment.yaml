@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-tenjin-core
+  labels:
+    name: {{ .Release.Name }}-tenjin-core
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tenjin
+  template:
+    metadata:
+      labels:
+        app: tenjin
+    spec:
+      containers:
+        - name: tenjin-core
+          image: yethitech/tenjin-enterprise:4.6.4
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-configmaptenjin
+          volumeMounts:
+            - name: tenjin-data-volume
+              mountPath: /root  # Mounting the PVC to the container's /backend directory
+      volumes:
+        - name: tenjin-data-volume
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}tenjin-pvc  # Ensuring the claimName is aligned
+      initContainers:
+        - name: wait-for-dependencies
+          image: busybox
+          command:
+            - "/bin/sh"
+            - "-c"
+            - >
+              until nc -zv {{ .Release.Name }}-elasticsearch 9200 && nc -zv {{ .Release.Name }}-postgres 5432; do
+                echo "Waiting for dependencies to be available..."
+                sleep 5
+              done
+---
+# PersistentVolumeClaim definition (dynamic provisioning)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}tenjin-pvc
+  labels:
+    app: {{ .Release.Name }}-tenjin
+  annotations:
+    "helm.sh/resource-policy": "keep"  # Prevent PVC deletion when uninstalling the Helm chart
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.tenjin.persistence.size | default "5Gi" }}  # Templated size from values.yaml
+  storageClassName: {{ .Values.tenjin.persistence.storageClassName | default "standard" }}  # Templated storage class
