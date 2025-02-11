@@ -43,7 +43,6 @@ spec:
         volumeMounts:
         - name: elasticsearch-data
           mountPath: /usr/share/elasticsearch/data
-          subPath: data
         readinessProbe:
           httpGet:
             path: /_cluster/health
