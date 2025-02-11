@@ -28,7 +28,7 @@ spec:
       volumes:
         - name: tenjin-data-volume
           persistentVolumeClaim:
-            claimName: {{ .Release.Name }}tenjin-pvc  # Ensuring the claimName is aligned
+            claimName: tenjin-data-volume   # Ensuring the claimName is aligned
       initContainers:
         - name: wait-for-dependencies
           image: busybox
@@ -45,7 +45,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Release.Name }}tenjin-pvc
+  name: tenjin-data-volume
   labels:
     app: {{ .Release.Name }}-tenjin
   annotations:
