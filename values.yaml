@@ -22,6 +22,6 @@ environment:
   POSTGRES_DB: tenjin
   POSTGRES_USER: yethi
   POSTGRES_PASSWORD: Yethi123
-  DEFAULT_USER_PASSWORD: Welcome@123
+  DEFAULT_USER_PASSWORD: Welcome@2023
   TENJIN_HOST_NAME: http://localhost
   TENJIN_ALLOWED_URL: http://localhost
