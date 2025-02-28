@@ -47,7 +47,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: tenjin-data-volume
   labels:
-    app: {{ .Release.Name }}-tenjin
+    app: tenjin
   annotations:
     "helm.sh/resource-policy": "keep"  # Prevent PVC deletion when uninstalling the Helm chart
 spec:

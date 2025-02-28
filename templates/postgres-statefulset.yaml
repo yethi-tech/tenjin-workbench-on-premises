@@ -30,7 +30,7 @@ spec:
   - metadata:
       name: postgres-data
       labels:
-        app: {{ .Release.Name }}-postgres
+        app: postgres
       annotations:
         "helm.sh/resource-policy": keep  # Prevents PVC deletion when StatefulSet is deleted
     spec:

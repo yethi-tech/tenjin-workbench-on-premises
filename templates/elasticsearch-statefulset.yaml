@@ -53,7 +53,7 @@ spec:
   - metadata:
       name: elasticsearch-data
       labels:
-        app: {{ .Release.Name }}-elasticsearch
+        app: elasticsearch
       annotations:
         "helm.sh/resource-policy": keep  # Prevents PVC deletion when StatefulSet is deleted
     spec:
