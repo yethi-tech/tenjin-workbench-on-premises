@@ -1,10 +1,11 @@
----
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: tenjin-db-update
   annotations:
-    helm.sh/hook: post-upgrade
+    "helm.sh/hook": post-upgrade  # Runs after each `helm upgrade`
+    "helm.sh/hook-weight": "5"  # Ensures it runs after other resources
+    "helm.sh/hook-delete-policy": hook-succeeded  # Deletes job after success
 spec:
   template:
     spec:
@@ -13,15 +14,24 @@ spec:
         - name: db-updater
           image: postgres:13
           command:
-            - sh
-            - -c
-            - >
-              echo "Waiting for PostgreSQL to be ready..." ;
-
-              until pg_isready -h "{{ .Release.Name }}-postgres" -U "yethi" -d "tenjin"; do
+            - "sh"
+            - "-c"
+            - |
+              echo "Waiting for PostgreSQL to be ready...";
+              until pg_isready -h tenjin-postgres -U "$POSTGRES_USER" -d "$POSTGRES_DB"; do
                 sleep 5;
               done;
-
-              echo "PostgreSQL is ready. Running database update..." ;
-
-              PGPASSWORD="Yethi123" psql -h "{{ .Release.Name }}-postgres" -U "yethi" -d "tenjin" -c "{{ .Values.dbUpdateQuery | squote }}"
+              echo "PostgreSQL is ready. Running database update...";
+              PGPASSWORD="$POSTGRES_PASSWORD" psql -h tenjin-postgres -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "
+              UPDATE test_step_attempt tsa
+              SET test_instance_id = tca.testinstance_id
+              FROM test_case_attempt tca
+              WHERE tsa.testcaseattempt_id = tca.id;
+              "
+          env:
+            - name: POSTGRES_DB
+              value: "tenjin"
+            - name: POSTGRES_USER
+              value: "yethi"
+            - name: POSTGRES_PASSWORD
+              value: "Yethi123"
