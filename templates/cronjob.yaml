@@ -8,7 +8,7 @@ spec:
   template:
     spec:
       restartPolicy: Never
-      containers:
+      containers:   
         - name: db-updater
           image: postgres:13
           command:
@@ -20,8 +20,9 @@ spec:
                 sleep 5;
               done;
               echo "PostgreSQL is ready. Running database update...";
-              PGPASSWORD=$POSTGRES_PASSWORD psql -h {{ .Release.Name }}-postgres -U $POSTGRES_USER -d $POSTGRES_DB -c "
-              {{ .Values.dbUpdateQuery }}"
+              PGPASSWORD=$POSTGRES_PASSWORD psql -h {{ .Release.Name }}-postgres -U $POSTGRES_USER -d $POSTGRES_DB <<EOF
+              {{ .Values.dbUpdateQuery | toYaml | indent 14 }}
+              EOF
           env:
             - name: POSTGRES_DB
               value: "{{ .Values.environment.POSTGRES_DB }}"
