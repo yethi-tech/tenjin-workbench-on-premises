@@ -16,11 +16,11 @@ spec:
             - "-c"
             - |
               echo "Waiting for PostgreSQL to be ready...";
-              until pg_isready -h tenjin-postgres -U $POSTGRES_USER -d $POSTGRES_DB; do
+              until pg_isready -h tenjin-postgres -U "$POSTGRES_USER" -d "$POSTGRES_DB"; do
                 sleep 5;
               done;
               echo "PostgreSQL is ready. Running database update...";
-              PGPASSWORD=$POSTGRES_PASSWORD psql -h tenjin-postgres -U $POSTGRES_USER -d $POSTGRES_DB -c "{{ .Values.dbUpdateQuery }}"
+              PGPASSWORD="$POSTGRES_PASSWORD" psql -h tenjin-postgres -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "{{ .Values.dbUpdateQuery }}"
           env:
             - name: POSTGRES_DB
               value: "{{ .Values.environment.POSTGRES_DB }}"
