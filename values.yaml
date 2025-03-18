@@ -25,3 +25,9 @@ environment:
   DEFAULT_USER_PASSWORD: Welcome@2023
   TENJIN_HOST_NAME: http://localhost
   TENJIN_ALLOWED_URL: http://localhost
+
+dbUpdateQuery: |
+  UPDATE test_step_attempt tsa
+  SET test_instance_id = tca.testinstance_id
+  FROM test_case_attempt tca
+  WHERE tsa.testcaseattempt_id = tca.id;
