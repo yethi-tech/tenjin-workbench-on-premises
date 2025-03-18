@@ -16,19 +16,12 @@ spec:
             - sh
             - -c
             - >
-              echo "Waiting for PostgreSQL to be ready...";
+              echo "Waiting for PostgreSQL to be ready..." ;
 
-              until pg_isready -h tenjin-postgres -U "$POSTGRES_USER" -d "$POSTGRES_DB"; do
+              until pg_isready -h "{{ .Release.Name }}-postgres" -U "yethi" -d "tenjin"; do
                 sleep 5;
               done;
 
-              echo "PostgreSQL is ready. Running database update...";
+              echo "PostgreSQL is ready. Running database update..." ;
 
-              PGPASSWORD="$POSTGRES_PASSWORD" psql -h tenjin-postgres -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "{{` .Values.dbUpdateQuery `}}"
-          env:
-            - name: POSTGRES_DB
-              value: '{{ .Values.environment.POSTGRES_DB | default "tenjin" }}'
-            - name: POSTGRES_USER
-              value: '{{ .Values.environment.POSTGRES_USER | default "yethi" }}'
-            - name: POSTGRES_PASSWORD
-              value: '{{ .Values.environment.POSTGRES_PASSWORD | default "Yethi123" }}'
+              PGPASSWORD="Yethi123" psql -h "{{ .Release.Name }}-postgres" -U "yethi" -d "tenjin" -c "{{ .Values.dbUpdateQuery | squote }}"
