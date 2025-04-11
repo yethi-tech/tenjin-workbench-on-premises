@@ -1,10 +1,9 @@
-{{- if .Values.dbJob.enabled }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ .Release.Name }}-dbjob
+  name: tenjin-dbjob
 spec:
-  schedule: "{{ .Values.dbJob.schedule }}"
+  schedule: "0 0 1 1 *"  # Run once a year (Jan 1st at 00:00)
   jobTemplate:
     spec:
       template:
@@ -12,29 +11,34 @@ spec:
           restartPolicy: Never
           containers:
             - name: db-updater
-              image: "{{ .Values.dbJob.image }}"
+              image: postgres:13
               command:
                 - /bin/sh
                 - -c
-                - >
+                - |-
                   echo "Waiting for PostgreSQL to be ready...";
-                  until pg_isready -h {{ printf "%s-postgres" .Release.Name }} -U "$POSTGRES_USER" -d "$POSTGRES_DB"; do
+                  until pg_isready -h tenjin-postgres -U "yethi" -d "tenjin"; do
                     sleep 5;
                   done;
-                  {{- range $index, $query := .Values.dbJob.queries }}
-                  echo "Running query {{ add $index 1 }}...";
-                  PGPASSWORD="$POSTGRES_PASSWORD" psql -h {{ printf "%s-postgres" $.Release.Name }} -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c '{{ $query }}';
-                  {{- if eq $index 0 }}
-                  echo "Sleeping for {{ $.Values.dbJob.sleepAfterFirst }} seconds after first query...";
-                  sleep {{ $.Values.dbJob.sleepAfterFirst }};
-                  {{- end }}
-                  {{- end }}
+
+                  echo "Running query 1...";
+                  PGPASSWORD="Yethi123" psql -h tenjin-postgres -U "yethi" -d "tenjin" -c "INSERT INTO sys_users_password_history (user_id, password_history, updated_at) SELECT id, password, NOW() FROM sys_users WHERE password IS NOT NULL;"
+                  sleep 20;
+
+                  echo "Running query 2...";
+                  PGPASSWORD="Yethi123" psql -h tenjin-postgres -U "yethi" -d "tenjin" -c "UPDATE prj_users SET prj_role_mapped = 101 WHERE prj_role_mapped != 100;"
+                  sleep 20;
+
+                  echo "Running query 3...";
+                  PGPASSWORD="Yethi123" psql -h tenjin-postgres -U "yethi" -d "tenjin" -c "DELETE FROM common_project_role_permissions;"
+                  sleep 20;
+
+                  echo "Running query 4...";
+                  PGPASSWORD="Yethi123" psql -h tenjin-postgres -U "yethi" -d "tenjin" -c "DELETE FROM project_roles_permissions;"
+                  sleep 20;
+
+                  echo "Running query 5...";
+                  PGPASSWORD="Yethi123" psql -h tenjin-postgres -U "yethi" -d "tenjin" -c "DELETE FROM prj_roles WHERE id NOT IN (100, 101);"
+                  sleep 20;
+
                   echo "All queries executed successfully."
-              env:
-                - name: POSTGRES_DB
-                  value: "{{ .Values.dbJob.dbName }}"
-                - name: POSTGRES_USER
-                  value: "{{ .Values.dbJob.user }}"
-                - name: POSTGRES_PASSWORD
-                  value: "{{ .Values.dbJob.password }}"
-{{- end }}

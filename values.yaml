@@ -26,27 +26,3 @@ environment:
   TENJIN_HOST_NAME: http://localhost
   TENJIN_ALLOWED_URL: http://localhost
 
-dbJob:
-  enabled: true
-  image: postgres:13
-  dbName: "tenjin"
-  user: "yethi"
-  password: "Yethi123"
-  sleepAfterFirst: 20
-
-  queries:
-    - |
-      INSERT INTO sys_users_password_history (user_id, password_history, updated_at)  
-      SELECT id, password, NOW() FROM sys_users WHERE password IS NOT NULL;
-    - |
-      UPDATE prj_users SET prj_role_mapped = 101 WHERE prj_role_mapped != 100;
-    - |
-      DELETE FROM common_project_role_permissions;
-    - |
-      DELETE FROM project_roles_permissions;
-    - |
-      DELETE FROM prj_roles WHERE id NOT IN (100, 101);
-
-
-
-
