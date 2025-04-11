@@ -24,7 +24,7 @@ spec:
 
                   {{- range $index, $query := .Values.dbJob.queries }}
                   echo "Running query {{ add $index 1 }}...";
-                  PGPASSWORD="$POSTGRES_PASSWORD" psql -h {{ printf "%s-postgres" $.Release.Name }} -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "{{ $query | replace "\"" "\\\"" | nindent 6 }}"
+                  PGPASSWORD="$POSTGRES_PASSWORD" psql -h {{ printf "%s-postgres" $.Release.Name }} -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c '{{ $query }}'
 
                   {{- if eq $index 0 }}
                   echo "Sleeping for {{ $.Values.dbJob.sleepAfterFirst }} seconds after first query...";
