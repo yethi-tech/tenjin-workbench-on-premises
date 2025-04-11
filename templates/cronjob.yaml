@@ -12,26 +12,23 @@ spec:
           restartPolicy: Never
           containers:
             - name: db-updater
-              image: {{ .Values.dbJob.image }}
+              image: "{{ .Values.dbJob.image }}"
               command:
-                - "sh"
-                - "-c"
-                - |
+                - /bin/sh
+                - -c
+                - >
                   echo "Waiting for PostgreSQL to be ready...";
                   until pg_isready -h {{ printf "%s-postgres" .Release.Name }} -U "$POSTGRES_USER" -d "$POSTGRES_DB"; do
                     sleep 5;
                   done;
-
                   {{- range $index, $query := .Values.dbJob.queries }}
                   echo "Running query {{ add $index 1 }}...";
-                  PGPASSWORD="$POSTGRES_PASSWORD" psql -h {{ printf "%s-postgres" $.Release.Name }} -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c '{{ $query }}'
-
+                  PGPASSWORD="$POSTGRES_PASSWORD" psql -h {{ printf "%s-postgres" $.Release.Name }} -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c '{{ $query }}';
                   {{- if eq $index 0 }}
                   echo "Sleeping for {{ $.Values.dbJob.sleepAfterFirst }} seconds after first query...";
                   sleep {{ $.Values.dbJob.sleepAfterFirst }};
                   {{- end }}
                   {{- end }}
-
                   echo "All queries executed successfully."
               env:
                 - name: POSTGRES_DB
