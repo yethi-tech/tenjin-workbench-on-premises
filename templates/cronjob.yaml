@@ -20,7 +20,8 @@ spec:
               done;
 
               echo "Waiting for Tenjin service to be ready...";
-              until nc -zv {{ .Release.Name }}-tenjin-core {{ .Values.tenjin.service.port }}; do
+              until wget --spider --quiet http://{{ .Release.Name }}-tenjin-core:{{ .Values.tenjin.service.port }}; do
+                echo "Tenjin service not ready yet..."
                 sleep 5;
               done;
 

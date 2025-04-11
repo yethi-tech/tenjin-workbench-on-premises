@@ -3,9 +3,9 @@ entries:
   tenjin-workbench:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-04-11T17:54:32.5229459+05:30"
+    created: "2025-04-11T18:16:20.784209+05:30"
     description: A Helm chart for Kubernetes
-    digest: 97f9d33191a322f594d6420d7cb361ee3d2cadb011073e54a9ce6cd5d40d5a1f
+    digest: 0d46e8ea06fa0d8b1bb3b0754384534a10a4c6765a75e4bcf90ba51a34c6add9
     name: tenjin-workbench
     type: application
     urls:
@@ -13,7 +13,7 @@ entries:
     version: 4.8.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-04-11T17:54:32.520336+05:30"
+    created: "2025-04-11T18:16:20.7815514+05:30"
     description: A Helm chart for Kubernetes
     digest: e381a492a7fc65e7bb70d18a13c7f74b57f9617b65deb15f83522b8f57f5dd44
     name: tenjin-workbench
@@ -23,7 +23,7 @@ entries:
     version: 4.7.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-04-11T17:54:32.5171331+05:30"
+    created: "2025-04-11T18:16:20.7794469+05:30"
     description: A Helm chart for Kubernetes
     digest: b010d3da46868acbca9eb307652f54823ec0138940bceab2db50c6b656c0ea8e
     name: tenjin-workbench
@@ -33,7 +33,7 @@ entries:
     version: 4.6.9
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-04-11T17:54:32.5150211+05:30"
+    created: "2025-04-11T18:16:20.7768014+05:30"
     description: A Helm chart for Kubernetes
     digest: 303b14594466e35887bd2d584dc2094d5e37902e8079ee35a04b5879f0361cee
     name: tenjin-workbench
@@ -43,7 +43,7 @@ entries:
     version: 4.6.6
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-04-11T17:54:32.5133866+05:30"
+    created: "2025-04-11T18:16:20.7752315+05:30"
     description: A Helm chart for Kubernetes
     digest: a0c14920b28c6f623269fc410761e564196c681d020c7f540bb7d80f878c94f4
     name: tenjin-workbench
@@ -51,4 +51,4 @@ entries:
     urls:
     - https://yethi-tech.github.io/tenjin-workbench-on-premises/tenjin-workbench-4.6.4.tgz
     version: 4.6.4
-generated: "2025-04-11T17:54:32.5112816+05:30"
+generated: "2025-04-11T18:16:20.7736707+05:30"
