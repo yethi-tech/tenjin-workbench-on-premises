@@ -9,7 +9,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: db-updater
-          image: postgres:13
+          image: bitnami/postgresql:13
           command:
             - /bin/sh
             - -c
@@ -20,8 +20,8 @@ spec:
               done;
 
               echo "Waiting for Tenjin service to be ready...";
-              until wget --spider --quiet http://{{ .Release.Name }}-tenjin-core:{{ .Values.tenjin.service.port }}; do
-                echo "Tenjin service not ready yet..."
+              until curl -sf http://{{ .Release.Name }}-tenjin-core:{{ .Values.tenjin.service.port }}; do
+                echo "Tenjin service not ready yet...";
                 sleep 5;
               done;
 
