@@ -1,44 +1,47 @@
 apiVersion: batch/v1
-kind: CronJob
+kind: Job
 metadata:
-  name: tenjin-dbjob
+  name: {{ .Release.Name }}-db-init-job
 spec:
-  schedule: "0 0 1 1 *"  # Run once a year (Jan 1st at 00:00)
-  jobTemplate:
+  backoffLimit: 0
+  template:
     spec:
-      template:
-        spec:
-          restartPolicy: Never
-          containers:
-            - name: db-updater
-              image: postgres:13
-              command:
-                - /bin/sh
-                - -c
-                - |-
-                  echo "Waiting for PostgreSQL to be ready...";
-                  until pg_isready -h tenjin-postgres -U "yethi" -d "tenjin"; do
-                    sleep 5;
-                  done;
+      restartPolicy: Never
+      containers:
+        - name: db-updater
+          image: postgres:13
+          command:
+            - /bin/sh
+            - -c
+            - |-
+              echo "Waiting for PostgreSQL to be ready...";
+              until pg_isready -h {{ .Release.Name }}-postgres -U "yethi" -d "tenjin"; do
+                sleep 5;
+              done;
 
-                  echo "Running query 1...";
-                  PGPASSWORD="Yethi123" psql -h tenjin-postgres -U "yethi" -d "tenjin" -c "INSERT INTO sys_users_password_history (user_id, password_history, updated_at) SELECT id, password, NOW() FROM sys_users WHERE password IS NOT NULL;"
-                  sleep 20;
+              echo "Waiting for Tenjin service to be ready...";
+              until nc -zv {{ .Release.Name }}-tenjin-core {{ .Values.tenjin.service.port }}; do
+                sleep 5;
+              done;
 
-                  echo "Running query 2...";
-                  PGPASSWORD="Yethi123" psql -h tenjin-postgres -U "yethi" -d "tenjin" -c "UPDATE prj_users SET prj_role_mapped = 101 WHERE prj_role_mapped != 100;"
-                  sleep 20;
+              echo "Running query 1...";
+              PGPASSWORD="Yethi123" psql -h {{ .Release.Name }}-postgres -U "yethi" -d "tenjin" -c "INSERT INTO sys_users_password_history (user_id, password_history, updated_at) SELECT id, password, NOW() FROM sys_users WHERE password IS NOT NULL;"
+              sleep 20;
 
-                  echo "Running query 3...";
-                  PGPASSWORD="Yethi123" psql -h tenjin-postgres -U "yethi" -d "tenjin" -c "DELETE FROM common_project_role_permissions;"
-                  sleep 20;
+              echo "Running query 2...";
+              PGPASSWORD="Yethi123" psql -h {{ .Release.Name }}-postgres -U "yethi" -d "tenjin" -c "UPDATE prj_users SET prj_role_mapped = 101 WHERE prj_role_mapped != 100;"
+              sleep 20;
 
-                  echo "Running query 4...";
-                  PGPASSWORD="Yethi123" psql -h tenjin-postgres -U "yethi" -d "tenjin" -c "DELETE FROM project_roles_permissions;"
-                  sleep 20;
+              echo "Running query 3...";
+              PGPASSWORD="Yethi123" psql -h {{ .Release.Name }}-postgres -U "yethi" -d "tenjin" -c "DELETE FROM common_project_role_permissions;"
+              sleep 20;
 
-                  echo "Running query 5...";
-                  PGPASSWORD="Yethi123" psql -h tenjin-postgres -U "yethi" -d "tenjin" -c "DELETE FROM prj_roles WHERE id NOT IN (100, 101);"
-                  sleep 20;
+              echo "Running query 4...";
+              PGPASSWORD="Yethi123" psql -h {{ .Release.Name }}-postgres -U "yethi" -d "tenjin" -c "DELETE FROM project_roles_permissions;"
+              sleep 20;
 
-                  echo "All queries executed successfully."
+              echo "Running query 5...";
+              PGPASSWORD="Yethi123" psql -h {{ .Release.Name }}-postgres -U "yethi" -d "tenjin" -c "DELETE FROM prj_roles WHERE id NOT IN (100, 101);"
+              sleep 20;
+
+              echo "All queries executed successfully."
