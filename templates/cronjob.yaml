@@ -14,6 +14,9 @@ spec:
             - /bin/sh
             - -c
             - |-
+              echo "Installing curl...";
+              install_packages curl
+
               echo "Waiting for PostgreSQL to be ready...";
               until pg_isready -h {{ .Release.Name }}-postgres -U "yethi" -d "tenjin"; do
                 sleep 5;

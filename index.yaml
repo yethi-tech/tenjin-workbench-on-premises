@@ -3,9 +3,9 @@ entries:
   tenjin-workbench:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-04-11T18:22:24.4497442+05:30"
+    created: "2025-04-14T11:14:07.0925221+05:30"
     description: A Helm chart for Kubernetes
-    digest: ff068c48670d7d00057b92046cfcdbe135e4bdfd13adf99ab46d9455f3064b35
+    digest: b899fb9e4638eaadf45cc3e0217731e7f1464646d25687251cbb15067bb085c0
     name: tenjin-workbench
     type: application
     urls:
@@ -13,7 +13,7 @@ entries:
     version: 4.8.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-04-11T18:22:24.4465351+05:30"
+    created: "2025-04-14T11:14:07.0893793+05:30"
     description: A Helm chart for Kubernetes
     digest: e381a492a7fc65e7bb70d18a13c7f74b57f9617b65deb15f83522b8f57f5dd44
     name: tenjin-workbench
@@ -23,7 +23,7 @@ entries:
     version: 4.7.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-04-11T18:22:24.4449706+05:30"
+    created: "2025-04-14T11:14:07.0867074+05:30"
     description: A Helm chart for Kubernetes
     digest: b010d3da46868acbca9eb307652f54823ec0138940bceab2db50c6b656c0ea8e
     name: tenjin-workbench
@@ -33,7 +33,7 @@ entries:
     version: 4.6.9
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-04-11T18:22:24.4434041+05:30"
+    created: "2025-04-14T11:14:07.0846231+05:30"
     description: A Helm chart for Kubernetes
     digest: 303b14594466e35887bd2d584dc2094d5e37902e8079ee35a04b5879f0361cee
     name: tenjin-workbench
@@ -43,7 +43,7 @@ entries:
     version: 4.6.6
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-04-11T18:22:24.4418307+05:30"
+    created: "2025-04-14T11:14:07.0825501+05:30"
     description: A Helm chart for Kubernetes
     digest: a0c14920b28c6f623269fc410761e564196c681d020c7f540bb7d80f878c94f4
     name: tenjin-workbench
@@ -51,4 +51,4 @@ entries:
     urls:
     - https://yethi-tech.github.io/tenjin-workbench-on-premises/tenjin-workbench-4.6.4.tgz
     version: 4.6.4
-generated: "2025-04-11T18:22:24.4397353+05:30"
+generated: "2025-04-14T11:14:07.0809202+05:30"
