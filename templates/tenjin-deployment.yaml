@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: tenjin-core
-          image: yethitech/tenjin-enterprise:4.8.0
+          image: yethitech/tenjin-enterprise:4.8.1
           ports:
             - containerPort: 8080
           envFrom:
