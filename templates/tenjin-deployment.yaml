@@ -24,11 +24,13 @@ spec:
                 name: {{ .Release.Name }}-configmaptenjin
           volumeMounts:
             - name: tenjin-data-volume
-              mountPath: /root  # Mounting the PVC to the container's /backend directory
+              mountPath: /root
       volumes:
         - name: tenjin-data-volume
           persistentVolumeClaim:
-            claimName: tenjin-data-volume   # Ensuring the claimName is aligned
+            claimName: tenjin-data-volume
+      imagePullSecrets:
+        - name: gitlab-auth
       initContainers:
         - name: wait-for-dependencies
           image: busybox
@@ -36,12 +38,12 @@ spec:
             - "/bin/sh"
             - "-c"
             - >
-              until nc -zv {{ .Release.Name }}-elasticsearch 9200 && nc -zv {{ .Release.Name }}-postgres 5432; do
-                echo "Waiting for dependencies to be available..."
+              until nc -zv {{ .Release.Name }}-elasticsearch 9200 && nc -zv 192.168.16.140 1521; do
+                echo "Waiting for Elasticsearch and Oracle DB to be available..."
                 sleep 5
               done
+
 ---
-# PersistentVolumeClaim definition (dynamic provisioning)
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -49,11 +51,11 @@ metadata:
   labels:
     app: tenjin
   annotations:
-    "helm.sh/resource-policy": "keep"  # Prevent PVC deletion when uninstalling the Helm chart
+    "helm.sh/resource-policy": "keep"
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: {{ .Values.tenjin.persistence.size | default "5Gi" }}  # Templated size from values.yaml
-  storageClassName: {{ .Values.tenjin.persistence.storageClassName | default "standard" }}  # Templated storage class
+      storage: {{ .Values.tenjin.persistence.size | default "5Gi" }}
+  storageClassName: {{ .Values.tenjin.persistence.storageClassName | default "standard" }}
