@@ -7,7 +7,7 @@ metadata:
 data:
   HOST: "http://192.168.16.88"
   PORT: "30557"
-  OPENAI_API_KEY: "sk-tenjin-enterprise-JDugfTTh2N6jIlnyvmHLT3BlbkFJFQsFzNDznREGzwmHuBRc"
+  OPENAI_API_KEY: "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"
   db_user: "tenjin"
   db_password: "tenjin"
   db_host: "192.168.16.140"
