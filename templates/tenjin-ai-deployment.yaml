@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: tenjin-ai
-          image: yethitech/ai-testcase-generation:latest
+          image: registry.gitlab.com/yethi/tenjin-ai/prototypes/test-process-automation/design/test-case-generation-int:orcale_test
           imagePullPolicy: Always
           resources:
             limits:
