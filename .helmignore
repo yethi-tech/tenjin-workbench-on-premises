@@ -1,8 +1,7 @@
-# Patterns to ignore when building packages.
-# This supports shell glob matching, relative path matching, and
-# negation (prefixed with !). Only one pattern per line.
+# OS files
 .DS_Store
-# Common VCS dirs
+
+# Version control
 .git/
 .gitignore
 .bzr/
@@ -10,14 +9,35 @@
 .hg/
 .hgignore
 .svn/
-# Common backup files
+
+# Backup/temporary files
 *.swp
 *.bak
 *.tmp
 *.orig
 *~
-# Various IDEs
+
+# IDEs
 .project
 .idea/
 *.tmproj
 .vscode/
+
+# Node/Vendor deps
+node_modules/
+vendor/
+
+# Build outputs
+dist/
+build/
+target/
+*.tgz
+*.tar.gz
+*.zip
+
+# Logs
+*.log
+
+# Python cache
+__pycache__/
+*.pyc
