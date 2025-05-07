@@ -5,10 +5,10 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-configmaptenjin
 data:
-  SPRING_DATASOURCE_DRIVER_CLASS_NAME: "org.postgresql.Driver"
-  SPRING_DATASOURCE_URL: "jdbc:postgresql://{{ .Release.Name }}-postgres:5432/{{ .Values.environment.POSTGRES_DB }}"
-  SPRING_DATASOURCE_USERNAME: "{{ .Values.environment.POSTGRES_USER }}"
-  SPRING_DATASOURCE_PASSWORD: "{{ .Values.environment.POSTGRES_PASSWORD }}"
+  SPRING_DATASOURCE_DRIVER_CLASS_NAME: "oracle.jdbc.OracleDriver"
+  SPRING_DATASOURCE_URL: "jdbc:oracle:thin:@192.168.3.136:1521:orcl"
+  SPRING_DATASOURCE_USERNAME: "{{ .Values.environment.ORACLE_USER }}"
+  SPRING_DATASOURCE_PASSWORD: "{{ .Values.environment.ORACLE_PASSWORD }}"
   TENJIN_DEFAULT_SEARCH_PAGE_SIZE: "50"
   TENJIN_DEFAULT_USER_PASSWORD: "{{ .Values.environment.DEFAULT_USER_PASSWORD }}"
   TENJIN_JWT_SECRET: "18a545b6-4303-4477-a5ee-ce3769f9fa4f"

@@ -25,4 +25,6 @@ environment:
   DEFAULT_USER_PASSWORD: Welcome@2023
   TENJIN_HOST_NAME: http://localhost
   TENJIN_ALLOWED_URL: http://localhost
+  ORACLE_USER: tenjin
+  ORACLE_PASSWORD: tenjin
 
