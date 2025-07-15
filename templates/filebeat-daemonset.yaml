@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ .Release.Name }}-filebeat
+  namespace: tenjin-workbench-vulnerability
+  selector:
+    matchLabels:
+      k8s-app: filebeat
+  template:
+    metadata:
+      labels:
+        k8s-app: filebeat
+    spec:
+      serviceAccountName: {{ .Release.Name }}-filebeat-sa
+      containers:
+        - name: filebeat
+          image: elastic/filebeat:8.17.6
+          volumeMounts:
+            - name: config
+              mountPath: /usr/share/filebeat/filebeat.yml
+              subPath: filebeat.yml
+            - name: varlog
+              mountPath: /var/log
+            - name: criolog
+              mountPath: /var/log/containers
+            - name: varrun
+              mountPath: /var/run
+          securityContext:
+            privileged: true  # May be needed to access Docker/CRI-O sockets, adjust as necessary
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}-filebeat-config
+        - name: varlog
+          hostPath:
+            path: /var/log
+        - name: criolog
+          hostPath:
+            path: /var/log/containers  # CRI-O logs directory
+        - name: varrun
+          hostPath:
+            path: /var/run
