@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-postgres
+  labels:
+    name: {{ .Release.Name }}-postgres
+spec:
+  serviceName: "postgres"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: tenjin-db
+        image: postgres:13
+        ports:
+        - containerPort: 5432
+        envFrom:
+        - configMapRef:
+            name: {{ .Release.Name }}-postgres-config
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-data
+      labels:
+        app: postgres
+      annotations:
+        "helm.sh/resource-policy": keep  # Prevents PVC deletion when StatefulSet is deleted
+    spec:
+      accessModes:
+        - {{ .Values.postgres.persistence.accessModes | default "ReadWriteOnce" }}  # Templated accessMode
+      storageClassName: {{ .Values.postgres.persistence.storageClassName | default "standard" }}  # Templated storageClassName
+      resources:
+        requests:
+          storage: {{ .Values.postgres.persistence.size | default "10Gi" }}  # Templated size from values.yaml
