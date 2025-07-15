@@ -3,6 +3,7 @@ kind: DaemonSet
 metadata:
   name: {{ .Release.Name }}-filebeat
   namespace: tenjin-workbench-vulnerability
+spec:
   selector:
     matchLabels:
       k8s-app: filebeat
@@ -15,6 +16,8 @@ metadata:
       containers:
         - name: filebeat
           image: elastic/filebeat:8.17.6
+          securityContext:
+            privileged: true  # May be needed to access Docker/CRI-O sockets
           volumeMounts:
             - name: config
               mountPath: /usr/share/filebeat/filebeat.yml
@@ -25,8 +28,6 @@ metadata:
               mountPath: /var/log/containers
             - name: varrun
               mountPath: /var/run
-          securityContext:
-            privileged: true  # May be needed to access Docker/CRI-O sockets, adjust as necessary
       volumes:
         - name: config
           configMap:
@@ -36,7 +37,7 @@ metadata:
             path: /var/log
         - name: criolog
           hostPath:
-            path: /var/log/containers  # CRI-O logs directory
+            path: /var/log/containers
         - name: varrun
           hostPath:
             path: /var/run
