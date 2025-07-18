@@ -38,11 +38,10 @@ spec:
             - "/bin/sh"
             - "-c"
             - >
-              until nc -zv {{ .Release.Name }}-elasticsearch 9200 && nc -zv 192.168.3.136 1521; do
-                echo "Waiting for Elasticsearch and Oracle DB to be available..."
+              until nc -zv {{ .Release.Name }}-elasticsearch 9200 && nc -zv {{ .Release.Name }}-postgres 5432; do
+                echo "Waiting for dependencies to be available..."
                 sleep 5
               done
-
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

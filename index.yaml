@@ -3,9 +3,9 @@ entries:
   tenjin-workbench:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-07-15T17:06:24.3606146+05:30"
+    created: "2025-07-18T12:18:56.7998605+05:30"
     description: A Helm chart for Kubernetes
-    digest: 01a96719ec6e7c072cd3424bae6f97e5dde7aab6420544213162252fc26333d9
+    digest: 8d2a635afb64c109094a4dba0871201d1a76303d44b2c56b1c0ff5bc910b2f17
     name: tenjin-workbench
     type: application
     urls:
@@ -13,7 +13,7 @@ entries:
     version: 4.10.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-07-15T17:06:24.372347+05:30"
+    created: "2025-07-18T12:18:56.8102623+05:30"
     description: A Helm chart for Kubernetes
     digest: fd0d64f947dec7ca9f61b81a205f89ccceec32d7388f295c478367a9f5ea2875
     name: tenjin-workbench
@@ -23,7 +23,7 @@ entries:
     version: 4.8.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-07-15T17:06:24.3718107+05:30"
+    created: "2025-07-18T12:18:56.8083296+05:30"
     description: A Helm chart for Kubernetes
     digest: 68d6ce5ab7e4177feb86513039ebcacaafc452c372cff53c18c02d4cce03a1ab
     name: tenjin-workbench
@@ -33,7 +33,7 @@ entries:
     version: 4.8.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-07-15T17:06:24.3707156+05:30"
+    created: "2025-07-18T12:18:56.8072674+05:30"
     description: A Helm chart for Kubernetes
     digest: 7373e4995a9913bfaa29597f5a8d6661bbe400ba684e4c698eb676fb8fe2f239
     name: tenjin-workbench
@@ -43,7 +43,7 @@ entries:
     version: 4.8.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-07-15T17:06:24.3659694+05:30"
+    created: "2025-07-18T12:18:56.8051509+05:30"
     description: A Helm chart for Kubernetes
     digest: ed4b89d582d3e5ae6e8ccdca21b0e69bcb12d2118faa4bafede333e99ed2218b
     name: tenjin-workbench
@@ -53,7 +53,7 @@ entries:
     version: 4.8.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-07-15T17:06:24.3643691+05:30"
+    created: "2025-07-18T12:18:56.8035608+05:30"
     description: A Helm chart for Kubernetes
     digest: e381a492a7fc65e7bb70d18a13c7f74b57f9617b65deb15f83522b8f57f5dd44
     name: tenjin-workbench
@@ -63,7 +63,7 @@ entries:
     version: 4.7.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-07-15T17:06:24.3627763+05:30"
+    created: "2025-07-18T12:18:56.8025023+05:30"
     description: A Helm chart for Kubernetes
     digest: b010d3da46868acbca9eb307652f54823ec0138940bceab2db50c6b656c0ea8e
     name: tenjin-workbench
@@ -73,7 +73,7 @@ entries:
     version: 4.6.9
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-07-15T17:06:24.3617189+05:30"
+    created: "2025-07-18T12:18:56.8009184+05:30"
     description: A Helm chart for Kubernetes
     digest: 303b14594466e35887bd2d584dc2094d5e37902e8079ee35a04b5879f0361cee
     name: tenjin-workbench
@@ -83,7 +83,7 @@ entries:
     version: 4.6.6
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-07-15T17:06:24.3595571+05:30"
+    created: "2025-07-18T12:18:56.7987977+05:30"
     description: A Helm chart for Kubernetes
     digest: a0c14920b28c6f623269fc410761e564196c681d020c7f540bb7d80f878c94f4
     name: tenjin-workbench
@@ -91,4 +91,4 @@ entries:
     urls:
     - https://yethi-tech.github.io/tenjin-workbench-on-premises/tenjin-workbench-4.6.4.tgz
     version: 4.6.4
-generated: "2025-07-15T17:06:24.3579638+05:30"
+generated: "2025-07-18T12:18:56.7956426+05:30"
