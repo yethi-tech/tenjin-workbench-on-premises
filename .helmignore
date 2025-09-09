@@ -41,3 +41,6 @@ target/
 # Python cache
 __pycache__/
 *.pyc
+# Ignore all old version folders except the latest
+# Ignore all version folders
+version-4.[0-9].*
