@@ -28,3 +28,12 @@ environment:
   ORACLE_USER: tenjin
   ORACLE_PASSWORD: tenjin
 
+pgadmin:
+  image: dpage/pgadmin4:8.5
+  email: admin@yethi.in
+  password: admin123
+
+  persistence:
+    accessMode: ReadWriteOnce
+    size: 2Gi
+    storageClassName: standard

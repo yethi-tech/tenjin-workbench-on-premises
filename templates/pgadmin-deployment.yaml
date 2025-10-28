@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-pgadmin
+  labels:
+    app: {{ .Release.Name }}-pgadmin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-pgadmin
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-pgadmin
+    spec:
+      containers:
+        - name: pgadmin
+          image: "{{ .Values.pgadmin.image | default "dpage/pgadmin4:8.5" }}"
+          ports:
+            - containerPort: 8081
+          env:
+            - name: PGADMIN_DEFAULT_EMAIL
+              value: "{{ .Values.pgadmin.email | default "admin@yethi.in" }}"
+            - name: PGADMIN_DEFAULT_PASSWORD
+              value: "{{ .Values.pgadmin.password | default "admin123" }}"
+            - name: PGADMIN_CONFIG_SERVER_MODE
+              value: "False"
+          volumeMounts:
+            - name: pgadmin-data
+              mountPath: /var/lib/pgadmin
+            - name: servers-json
+              mountPath: /pgadmin4/servers.json
+              subPath: servers.json
+      volumes:
+        - name: pgadmin-data
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-pgadmin-pvc
+        - name: servers-json
+          configMap:
+            name: {{ .Release.Name }}-pgadmin-config
+---			
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-pgadmin-pvc
+  labels:
+    app: {{ .Release.Name }}-pgadmin
+  annotations:
+    "helm.sh/resource-policy": keep
+spec:
+  accessModes:
+    - {{ .Values.pgadmin.persistence.accessMode | default "ReadWriteOnce" }}
+  resources:
+    requests:
+      storage: {{ .Values.pgadmin.persistence.size | default "2Gi" }}
+  storageClassName: {{ .Values.pgadmin.persistence.storageClassName | default "standard" }}

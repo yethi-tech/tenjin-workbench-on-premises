@@ -3,12 +3,12 @@ entries:
   tenjin-workbench:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-09-09T12:38:59.2577904+05:30"
+    created: "2025-10-28T11:48:11.6271788+05:30"
     description: A Helm chart for Kubernetes
-    digest: d62536c3dc28cf1c20ddc81b693f08d629e408216b7d307bd4879ad81f787cf6
+    digest: c056cdf7c555eedb77b01b98c28ad34aaa0678448bd350c0085876f89cf4e472
     name: tenjin-workbench
     type: application
     urls:
     - https://yethi-tech.github.io/tenjin-workbench-on-premises/version-4.10.0/tenjin-workbench-4.10.0.tgz
     version: 4.10.0
-generated: "2025-09-09T12:38:59.2566888+05:30"
+generated: "2025-10-28T11:48:11.6243877+05:30"
