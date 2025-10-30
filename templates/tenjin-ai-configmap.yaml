@@ -8,10 +8,13 @@ data:
   HOST: "http://192.168.16.88"
   PORT: "30557"
 <<<<<<< HEAD
+<<<<<<< HEAD
   OPENAI_API_KEY: "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"
 =======
   OPENAI_API_KEY: ""
 >>>>>>> b4bdce9 (update the new tenjin release 4.12.1)
+=======
+>>>>>>> 621097a (made changes in ai-config)
   db_user: "{{ .Values.environment.POSTGRES_USER }}"
   db_password: "{{ .Values.environment.POSTGRES_PASSWORD }}"
   db_host: "{{ .Release.Name }}-postgres"

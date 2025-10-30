@@ -4,6 +4,7 @@ entries:
   - apiVersion: v2
     appVersion: 1.16.0
 <<<<<<< HEAD
+<<<<<<< HEAD
     created: "2025-10-30T19:16:21.9836335+05:30"
     description: A Helm chart for Kubernetes
     digest: 168d3699e2aae99c65b02530f25eff81435902f06b49362679f52ad054055491
@@ -12,13 +13,22 @@ entries:
     description: A Helm chart for Kubernetes
     digest: 718ccc1e66c2a45e700a6164d2fdf2086ce7bc7035bd917887b604c284792d59
 >>>>>>> b4bdce9 (update the new tenjin release 4.12.1)
+=======
+    created: "2025-10-30T19:12:29.5824985+05:30"
+    description: A Helm chart for Kubernetes
+    digest: fb7abc824222a9e39ceeac9e2946c5f39b5ff01af92316902e5f8fb8ad2b7390
+>>>>>>> 621097a (made changes in ai-config)
     name: tenjin-workbench
     type: application
     urls:
     - https://yethi-tech.github.io/tenjin-workbench-on-premises/version-4.12.1/tenjin-workbench-4.12.1.tgz
     version: 4.12.1
 <<<<<<< HEAD
+<<<<<<< HEAD
 generated: "2025-10-30T19:16:21.9818972+05:30"
 =======
 generated: "2025-10-30T19:10:04.1770671+05:30"
 >>>>>>> b4bdce9 (update the new tenjin release 4.12.1)
+=======
+generated: "2025-10-30T19:12:29.5808167+05:30"
+>>>>>>> 621097a (made changes in ai-config)
