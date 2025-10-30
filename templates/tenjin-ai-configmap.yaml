@@ -17,4 +17,4 @@ data:
   db_schema: "tenjin"
   instance: "enterprise"
   llm_provider: "openai"
-  openai_model: "gpt-4.1"
+  openai_model: "gpt-4.1-mini"
