@@ -49,7 +49,7 @@ data:
   server.compression.min-response-size: "10"
   server.compression.mime-types: "text/html,text/xml,text/plain,text/css,application/json"
   tenjin.scheduler.retention-days: "30"
-  tenjin.scheduler.retention-days: 1
+  tenjin.scheduler.retention-days: "1"
   jwt.keys.directory: src/main/resources/keys_new
   jwt.private-key: private_key.pem
   jwt.public-key: public_key.pem
