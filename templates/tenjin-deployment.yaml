@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: tenjin-core
-          image: yethitech/tenjin-enterprise:4.12.1
+          image: registry.gitlab.com/yethi/tenjin-enterprise/devops/docker_image_builder/tenjin-enterprise:4.14.0
           ports:
             - containerPort: 8080
           envFrom:

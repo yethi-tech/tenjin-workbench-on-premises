@@ -1,6 +1,6 @@
 tenjin:
   persistence:
-    size: "5Gi" # Size of the storage
+    size: "6Gi" # Size of the storage
     storageClassName: "standard" # Name of the storage class (adjust based on your cluster)
   service:
     type: NodePort

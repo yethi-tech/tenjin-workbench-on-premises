@@ -9,48 +9,11 @@ data:
   SPRING_DATASOURCE_URL: "jdbc:postgresql://{{ .Release.Name }}-postgres:5432/{{ .Values.environment.POSTGRES_DB }}"
   SPRING_DATASOURCE_USERNAME: "{{ .Values.environment.POSTGRES_USER }}"
   SPRING_DATASOURCE_PASSWORD: "{{ .Values.environment.POSTGRES_PASSWORD }}"
-  TENJIN_DEFAULT_SEARCH_PAGE_SIZE: "50"
   TENJIN_DEFAULT_USER_PASSWORD: "{{ .Values.environment.DEFAULT_USER_PASSWORD }}"
-  TENJIN_JWT_SECRET: "18a545b6-4303-4477-a5ee-ce3769f9fa4f"
-  TENJIN_JWT_TOKEN_VALIDITY: "86400000"
-  SPRING_THYMELEAF_PREFIX: "classpath:/static/"
-  SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
-  TENJIN_PASSWORD_RESET_URL: "/forgot-password"
-  SPRING_MVC_PATHMATCH_MATCHING_STRATEGY: "ant-path-matcher"
-  TENJIN_MIN_EXCEL_VERSION: "2007"
-  TENJIN.DEFAULT-PROJECTS-PATH: /tenjintemplates/Projects
-  TENJIN.DEFAULT.TEMPORARY-UPLOADS-PATH: /tenjintemplates/Uploads
-  TENJIN.DEFAULT.TEMPORARY-DOWNLOADS-PATH: /tenjintemplates/Downloads
-  SPRING_SERVLET_MULTIPART_FILE_SIZE_THRESHOLD: "20MB"
-  SPRING_SERVLET_MULTIPART_MAX_FILE_SIZE: "10MB"
-  SPRING_SERVLET_MULTIPART_MAX_REQUEST_SIZE: "20MB"
-  SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: "true"
   TENJIN_ELASTIC_HOST: "{{ .Release.Name }}-elasticsearch"
   TENJIN_ELASTIC_PORT: "9200"
   TENJIN_ELASTIC_USERNAME: "elastic"
   TENJIN_ELASTIC_SECURETYPE: "http"
   TENJIN_BASE_URL: "{{ .Values.environment.TENJIN_HOST_NAME }}"
-  TENJIN_WORK-PATH: /root
-  TENJIN.INDEX.THREADS: "10"
-  TENJIN_INDEX_CORE_THREADS: "25"
-  TENJIN_INDEX_MAX_THREADS: "50"
-  TENJIN_INDEX_QUEUE_CAPACITY: "200"
-  TENJIN_INDEX_RETRY_DELAY_MS: "1000"
-  TENJIN_IMPORT_PERSIST_BATCH_SIZE: "300"
-  TENJIN_DISPATCHER_MODE: "queue"
   TENJIN_ALLOWED_URL: "{{ .Values.environment.TENJIN_ALLOWED_URL }}"
-  TENJIN_SCHEDULER_ENABLED: "Y"
-  TENJIN_LONGPOLLING_SCHEDULER_ENABLED: "Y"
   TENJIN.AI-HOST: http://{{ .Release.Name }}-tenjin-ai:8022
-  TENJIN.EXPORT.PAGE-SIZE: "250"
-  TENJIN.ELASTIC.SCROLL.TIMEOUT-MINUTES: "5"
-  application.version: "@project.version@"
-  server.compression.enabled: "true"
-  server.compression.min-response-size: "10"
-  server.compression.mime-types: "text/html,text/xml,text/plain,text/css,application/json"
-  tenjin.scheduler.retention-days: "30"
-  tenjin.scheduler.retention-days: "1"
-  jwt.keys.directory: src/main/resources/keys_new
-  jwt.private-key: private_key.pem
-  jwt.public-key: public_key.pem
-  jwt.public-key.access-token: my-secure-key-access-token
