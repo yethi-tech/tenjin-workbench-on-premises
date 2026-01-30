@@ -1,0 +1,16 @@
+{{- if .Values.addCopilotService }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-copilot
+  labels:
+    app: copilot
+spec:
+  type: ClusterIP
+  selector:
+    app: copilot
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+{{- end }}

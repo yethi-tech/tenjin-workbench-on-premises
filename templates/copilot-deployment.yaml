@@ -1,0 +1,50 @@
+{{- if .Values.addCopilotDeployment }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-copilot
+  labels:
+    app: copilot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: copilot
+  template:
+    metadata:
+      labels:
+        app: copilot
+    spec:
+      containers:
+        - name: copilot
+          image: registry.gitlab.com/yethi/rnd/gen-ai/copilot-service/tenjin-copilot-service:latest-dev
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8000
+
+          resources:
+            requests:
+              cpu: 500m
+              memory: 2Gi
+            limits:
+              memory: 4Gi
+
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-copilot-config
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 40
+            periodSeconds: 20
+{{- end }}

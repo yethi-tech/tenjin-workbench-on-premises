@@ -1,0 +1,28 @@
+{{- if .Values.addCopilotConfig }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-copilot-config
+  labels:
+    app: copilot
+data:
+  DB_TYPE: postgres
+  DB_HOST: {{ .Release.Name }}-postgres
+  DB_USER: {{ .Values.environment.POSTGRES_USER | default "postgres" }}
+  DB_PASSWORD: {{ .Values.environment.POSTGRES_PASSWORD | default "postgres_pass" }}
+  DB_PORT: "5432"
+  DB_NAME: {{ .Values.environment.POSTGRES_DB | default "tenjin" }}
+  TENJIN_URL: {{ .Values.environment.TENJIN_URL | default "" }}
+  OPENAI_API_KEY: {{ .Values.environment.OPENAI_API_KEY | default "" }}
+  LANGSMITH_API_KEY: {{ .Values.environment.LANGSMITH_API_KEY | default "" }}
+
+  LANGSMITH_PROJECT: tenjin-copilot
+  LANGSMITH_TRACING_V2: "true"
+
+  TENJIN_AGENT_MODEL: gpt-4o-mini
+  REQUIREMENTS_INTELLIGENCE_MODEL: gpt-4o-mini
+  TEST_DESIGN_INTELLIGENCE_MODEL: gpt-4o-mini
+  DOCS_INTELLIGENCE_MODEL: gpt-4o-mini
+  ASSISTANT_INTELLIGENCE_MODEL: gpt-4o-mini
+  AI_PROVIDER: openai
+{{- end }}
