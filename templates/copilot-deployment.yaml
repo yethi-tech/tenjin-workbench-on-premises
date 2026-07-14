@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: copilot
-          image: registry.gitlab.com/yethi/rnd/gen-ai/copilot-service/tenjin-copilot-service:latest-dev
+          image: {{ .Values.tenjin-kairo.image | default "registry.gitlab.com/yethi/rnd/gen-ai/copilot-service/tenjin-copilot-service:4.17.2" }}
           imagePullPolicy: Always
 
           ports:
@@ -33,18 +33,4 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-copilot-config
-
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 8000
-            initialDelaySeconds: 20
-            periodSeconds: 10
-
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 8000
-            initialDelaySeconds: 40
-            periodSeconds: 20
 {{- end }}

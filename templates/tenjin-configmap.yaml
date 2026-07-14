@@ -1,19 +1,48 @@
-# templates/configmap.yaml
-
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-configmaptenjin
 data:
+  # PostgreSQL
   SPRING_DATASOURCE_DRIVER_CLASS_NAME: "org.postgresql.Driver"
-  SPRING_DATASOURCE_URL: "jdbc:postgresql://{{ .Release.Name }}-postgres:5432/{{ .Values.environment.POSTGRES_DB }}"
-  SPRING_DATASOURCE_USERNAME: "{{ .Values.environment.POSTGRES_USER }}"
-  SPRING_DATASOURCE_PASSWORD: "{{ .Values.environment.POSTGRES_PASSWORD }}"
-  TENJIN_DEFAULT_USER_PASSWORD: "{{ .Values.environment.DEFAULT_USER_PASSWORD }}"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://{{ .Release.Name }}-postgres:5432/{{ .Values.environment.POSTGRES_DB | default "" }}"
+  SPRING_DATASOURCE_USERNAME: "{{ .Values.environment.POSTGRES_USER | default "" }}"
+  SPRING_DATASOURCE_PASSWORD: "{{ .Values.environment.POSTGRES_PASSWORD | default "" }}"
+
+  # Elasticsearch
   TENJIN_ELASTIC_HOST: "{{ .Release.Name }}-elasticsearch"
-  TENJIN_ELASTIC_PORT: "9200"
-  TENJIN_ELASTIC_USERNAME: "elastic"
-  TENJIN_ELASTIC_SECURETYPE: "http"
-  TENJIN_BASE_URL: "{{ .Values.environment.TENJIN_HOST_NAME }}"
-  TENJIN_ALLOWED_URL: "{{ .Values.environment.TENJIN_ALLOWED_URL }}"
-  TENJIN.AI-HOST: http://{{ .Release.Name }}-tenjin-ai:8022
+  TENJIN_ELASTIC_PORT: "{{ .Values.environment.ELASTIC_PORT | default "9200" }}"
+  TENJIN_ELASTIC_USERNAME: "{{ .Values.environment.ELASTIC_USERNAME | default "elastic" }}"
+  TENJIN_ELASTIC_SECURETYPE: "{{ .Values.environment.ELASTIC_SECURETYPE | default "http" }}"
+
+  # Tenjin Core
+  TENJIN_DEFAULT_USER_PASSWORD: "{{ .Values.tenjin-core.TENJIN_DEFAULT_USER_PASSWORD | default "Welcome@2025" }}"
+  TENJIN_BASE_URL: "{{ .Values.tenjin-core.TENJIN_BASE_URL | default "http://localhost" }}"
+  TENJIN_ALLOWED_URL: "{{ .Values.tenjin-core.TENJIN_ALLOWED_URL | default "http://localhost" }}"
+  TENJIN.AI-HOST: http://{{ .Release.Name }}-copilot:8000
+  OPENAI_API_KEY: "{{ .Values.tenjin-core.OPENAI_API_KEY | default "[ENCRYPTION_KEY]" }}"
+
+  TENJIN_SCHEDULER_ENABLED: "Y"
+  TENJIN_LONGPOLLING_SCHEDULER_ENABLED: "Y"
+  TENJIN_SCHEDULER_RETENTION_DAYS: "{{ .Values.tenjin-core.TENJIN_SCHEDULER_RETENTION_DAYS | default "" }}"
+
+  TENJIN_ELASTIC_IMPORT_SIZE: "300"
+  TENJIN_INDEX_THREADS: "10"
+  TENJIN_INDEX_CORE_THREADS: "25"
+  TENJIN_INDEX_MAX_THREADS: "50"
+  TENJIN_INDEX_QUEUE_CAPACITY: "200"
+  TENJIN_INDEX_RETRY_DELAY: "1000"
+
+  tenjin.copilot.service.url: http://{{ .Release.Name }}-copilot:8000
+  OPENAI_MODEL: "gpt-5.2"
+  TENJIN_JACKSON_MAX_STRING_LENGTH: "20000"
+
+  TENJIN_SCHEDULER_CRON: "{{ .Values.tenjin-core.TENJIN_SCHEDULER_CRON | default "0 0 * * * ?" }}"
+
+  MAIL_PWD: "{{ .Values.tenjin-core.MAIL_PWD | default "" }}"
+
+  TENJIN_SCHEDULER_AWAIT_TERMINATION_ENABLED: "true"
+  TENJIN_SCHEDULER_AWAIT_TERMINATION_PERIOD: "180"
+
+  COOKIE_SECURE: "{{ .Values.tenjin-core.COOKIE_SECURE | default "false" }}"
+  SSL_ENABLED: "{{ .Values.tenjin-core.SSL_ENABLED | default "false" }}"
