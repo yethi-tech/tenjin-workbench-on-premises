@@ -10,7 +10,7 @@ spec:
   sources:
     - repoURL: https://yethi-tech.github.io/tenjin-workbench-on-premises
       chart: tenjin-workbench
-      targetRevision: "4.17.2"
+      targetRevision: "4.17.3"
 
       helm:
         releaseName: tenjin-workbench-index-testing
