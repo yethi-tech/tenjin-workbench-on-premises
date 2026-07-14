@@ -1,32 +1,29 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: tenjin-dev
+  name: tenjin-workbench-index-testing
   namespace: argocd
 
 spec:
   project: default
 
   sources:
-
-    # Helm Repository
     - repoURL: https://yethi-tech.github.io/tenjin-workbench-on-premises
       chart: tenjin-workbench
       targetRevision: "4.17.2"
 
       helm:
-        releaseName: tenjin
+        releaseName: tenjin-workbench-index-testing
         valueFiles:
-          - $values/argocd/values/postgres-support-env-values.yaml
+          - $values/argocd/values/postgres-support-values.yaml
 
-    # Git Repository (values)
     - repoURL: https://github.com/yethi-tech/tenjin-workbench-on-premises.git
       targetRevision: main
       ref: values
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: dev
+    namespace: tenjin-workbench-index-testing
 
   syncPolicy:
     syncOptions:
