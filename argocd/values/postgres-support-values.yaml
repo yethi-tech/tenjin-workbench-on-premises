@@ -14,7 +14,7 @@ elasticsearch:
     storageClassName: standard
     size: 5Gi
 postgres:
-  image: "13"
+  image: "postgres:13"
   persistence:
     size: 10Gi # Storage size
     accessModes: ReadWriteOnce # Access mode
@@ -26,7 +26,7 @@ environment:
   ORACLE_USER: tenjin
   ORACLE_PASSWORD: tenjin
 
-tenjin-kairo:
+tenjinkairo:
   image: "yethitech/tenjin-kairo:4.17.2"
   VECTOR_STORE_ID: "vs_6a1ebb74d1008191a069d61abfdf4e14"
   TEST_GEN_INSTANCE: "enterprise"
@@ -34,7 +34,7 @@ tenjin-kairo:
   OPENAI_API_KEY: ""
   LANGSMITH_API_KEY: ""
 
-tenjin-core:
+tenjincore:
   image: "registry.gitlab.com/yethi/tenjin-enterprise/devops/docker_image_builder/tenjin-enterprise:4.17.3"
   TENJIN_DEFAULT_USER_PASSWORD: "Welcome@2026"
   TENJIN_BASE_URL: ""
