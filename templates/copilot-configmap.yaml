@@ -29,6 +29,6 @@ data:
   ASSISTANT_INTELLIGENCE_MODEL: "gpt-5.2"
   AI_PROVIDER: "openai"
 
-  VECTOR_STORE_ID: {{ .Values.tenjinkairo.VECTOR_STORE_ID | default "" | quote }}
-  TEST_GEN_INSTANCE: {{ .Values.tenjinkairo.TEST_GEN_INSTANCE | default "" | quote }}
-  TEST_GEN_OPENAI_API_KEY: {{ .Values.tenjinkairo.TEST_GEN_OPENAI_API_KEY | default "" | quote }}
+  VECTOR_STORE_ID: ""
+  TEST_GEN_INSTANCE: ""
+  TEST_GEN_OPENAI_API_KEY: ""
