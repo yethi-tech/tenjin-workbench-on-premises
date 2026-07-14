@@ -10,10 +10,11 @@ data:
   DB_USER: {{ .Values.environment.POSTGRES_USER | default "postgres" }}
   DB_PASSWORD: {{ .Values.environment.POSTGRES_PASSWORD | default "postgres_pass" }}
   DB_PORT: "5432"
+  DB_SCHEMA: "public"
   DB_NAME: {{ .Values.environment.POSTGRES_DB | default "tenjin" }}
   TENJIN_URL: "http://{{ .Release.Name }}-tenjin-core:8080"
-  OPENAI_API_KEY: {{ .Values.tenjinkairo.OPENAI_API_KEY | default "[ENCRYPTION_KEY]" }}
-  LANGSMITH_API_KEY: {{ .Values.tenjinkairo.LANGSMITH_API_KEY | default "[ENCRYPTION_KEY]" }}
+  OPENAI_API_KEY: ""
+  LANGSMITH_API_KEY: ""
 
   LANGSMITH_PROJECT: tenjin-copilot
   LANGSMITH_TRACING_V2: "true"
