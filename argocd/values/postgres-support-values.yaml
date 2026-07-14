@@ -55,7 +55,3 @@ pgadmin:
     accessMode: ReadWriteOnce
     size: 2Gi
     storageClassName: standard
-
-addCopilotDeployment: true
-addCopilotConfig: true
-addCopilotService: true
