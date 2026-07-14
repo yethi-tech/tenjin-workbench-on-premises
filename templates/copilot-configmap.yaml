@@ -4,27 +4,31 @@ metadata:
   name: {{ .Release.Name }}-copilot-config
   labels:
     app: copilot
+
 data:
-  DB_TYPE: postgres
-  DB_HOST: {{ .Release.Name }}-postgres
-  DB_USER: {{ .Values.environment.POSTGRES_USER | default "postgres" }}
-  DB_PASSWORD: {{ .Values.environment.POSTGRES_PASSWORD | default "postgres_pass" }}
+  DB_TYPE: "postgres"
+  DB_HOST: "{{ .Release.Name }}-postgres"
+  DB_USER: {{ .Values.environment.POSTGRES_USER | default "postgres" | quote }}
+  DB_PASSWORD: {{ .Values.environment.POSTGRES_PASSWORD | default "postgres_pass" | quote }}
   DB_PORT: "5432"
   DB_SCHEMA: "public"
-  DB_NAME: {{ .Values.environment.POSTGRES_DB | default "tenjin" }}
+  DB_NAME: {{ .Values.environment.POSTGRES_DB | default "tenjin" | quote }}
+
   TENJIN_URL: "http://{{ .Release.Name }}-tenjin-core:8080"
+
   OPENAI_API_KEY: ""
   LANGSMITH_API_KEY: ""
 
-  LANGSMITH_PROJECT: tenjin-copilot
+  LANGSMITH_PROJECT: "tenjin-copilot"
   LANGSMITH_TRACING_V2: "true"
 
-  TENJIN_AGENT_MODEL: gpt-5.2
-  REQUIREMENTS_INTELLIGENCE_MODEL: gpt-5.2
-  TEST_DESIGN_INTELLIGENCE_MODEL: gpt-5.2
-  DOCS_INTELLIGENCE_MODEL: gpt-5.2
-  ASSISTANT_INTELLIGENCE_MODEL: gpt-5.2
-  AI_PROVIDER: openai
+  TENJIN_AGENT_MODEL: "gpt-5.2"
+  REQUIREMENTS_INTELLIGENCE_MODEL: "gpt-5.2"
+  TEST_DESIGN_INTELLIGENCE_MODEL: "gpt-5.2"
+  DOCS_INTELLIGENCE_MODEL: "gpt-5.2"
+  ASSISTANT_INTELLIGENCE_MODEL: "gpt-5.2"
+  AI_PROVIDER: "openai"
+
   VECTOR_STORE_ID: {{ .Values.tenjinkairo.VECTOR_STORE_ID | default "" | quote }}
   TEST_GEN_INSTANCE: {{ .Values.tenjinkairo.TEST_GEN_INSTANCE | default "" | quote }}
   TEST_GEN_OPENAI_API_KEY: {{ .Values.tenjinkairo.TEST_GEN_OPENAI_API_KEY | default "" | quote }}
