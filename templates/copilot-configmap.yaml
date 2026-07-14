@@ -1,4 +1,3 @@
-{{- if .Values.addCopilotConfig }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -13,8 +12,8 @@ data:
   DB_PORT: "5432"
   DB_NAME: {{ .Values.environment.POSTGRES_DB | default "tenjin" }}
   TENJIN_URL: "http://{{ .Release.Name }}-tenjin-core:8080"
-  OPENAI_API_KEY: {{ .Values.tenjinkairo.OPENAI_API_KEY | default "" }}
-  LANGSMITH_API_KEY: {{ .Values.tenjinkairo.LANGSMITH_API_KEY | default "" }}
+  OPENAI_API_KEY: {{ .Values.tenjinkairo.OPENAI_API_KEY | default "[ENCRYPTION_KEY]" }}
+  LANGSMITH_API_KEY: {{ .Values.tenjinkairo.LANGSMITH_API_KEY | default "[ENCRYPTION_KEY]" }}
 
   LANGSMITH_PROJECT: tenjin-copilot
   LANGSMITH_TRACING_V2: "true"
@@ -28,4 +27,3 @@ data:
   VECTOR_STORE_ID: {{ .Values.tenjinkairo.VECTOR_STORE_ID | default "" | quote }}
   TEST_GEN_INSTANCE: {{ .Values.tenjinkairo.TEST_GEN_INSTANCE | default "" | quote }}
   TEST_GEN_OPENAI_API_KEY: {{ .Values.tenjinkairo.TEST_GEN_OPENAI_API_KEY | default "" | quote }}
-{{- end }}
