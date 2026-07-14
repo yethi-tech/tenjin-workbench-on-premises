@@ -56,6 +56,6 @@ pgadmin:
     size: 2Gi
     storageClassName: standard
 
-addCopilotDeployment: false
-addCopilotConfig: false
-addCopilotService: false
+addCopilotDeployment: true
+addCopilotConfig: true
+addCopilotService: true
