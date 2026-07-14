@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: copilot
-          image: {{ .Values.tenjin-kairo.image | default "registry.gitlab.com/yethi/rnd/gen-ai/copilot-service/tenjin-copilot-service:4.17.2" }}
+          image: {{ .Values.tenjinkairo.image | default "registry.gitlab.com/yethi/rnd/gen-ai/copilot-service/tenjin-copilot-service:4.17.2" }}
           imagePullPolicy: Always
 
           ports:

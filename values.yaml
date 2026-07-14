@@ -26,7 +26,7 @@ environment:
   ORACLE_USER: tenjin
   ORACLE_PASSWORD: tenjin
 
-tenjin-kairo:
+tenjinkairo:
   image: "registry.gitlab.com/yethi/rnd/gen-ai/copilot-service/tenjin-copilot-service:4.17.2"
   VECTOR_STORE_ID: ""
   TEST_GEN_INSTANCE: ""
@@ -34,7 +34,7 @@ tenjin-kairo:
   OPENAI_API_KEY: ""
   LANGSMITH_API_KEY: ""
 
-tenjin-core:
+tenjincore:
   image: "registry.gitlab.com/yethi/tenjin-enterprise/devops/docker_image_builder/tenjin-enterprise:4.17.2"
   TENJIN_DEFAULT_USER_PASSWORD: ""
   TENJIN_BASE_URL: ""

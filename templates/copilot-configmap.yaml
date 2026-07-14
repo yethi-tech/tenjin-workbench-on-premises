@@ -13,8 +13,8 @@ data:
   DB_PORT: "5432"
   DB_NAME: {{ .Values.environment.POSTGRES_DB | default "tenjin" }}
   TENJIN_URL: "http://{{ .Release.Name }}-tenjin-core:8080"
-  OPENAI_API_KEY: {{ .Values.tenjin-kairo.OPENAI_API_KEY | default "" }}
-  LANGSMITH_API_KEY: {{ .Values.tenjin-kairo.LANGSMITH_API_KEY | default "" }}
+  OPENAI_API_KEY: {{ .Values.tenjinkairo.OPENAI_API_KEY | default "" }}
+  LANGSMITH_API_KEY: {{ .Values.tenjinkairo.LANGSMITH_API_KEY | default "" }}
 
   LANGSMITH_PROJECT: tenjin-copilot
   LANGSMITH_TRACING_V2: "true"
@@ -23,9 +23,9 @@ data:
   REQUIREMENTS_INTELLIGENCE_MODEL: gpt-5.2
   TEST_DESIGN_INTELLIGENCE_MODEL: gpt-5.2
   DOCS_INTELLIGENCE_MODEL: gpt-5.2
-  ASSI STANT_INTELLIGENCE_MODEL: gpt-5.2
+  ASSISTANT_INTELLIGENCE_MODEL: gpt-5.2
   AI_PROVIDER: openai
-  VECTOR_STORE_ID: {{ .Values.tenjin-kairo.VECTOR_STORE_ID | default "" | quote }}
-  TEST_GEN_INSTANCE: {{ .Values.tenjin-kairo.TEST_GEN_INSTANCE | default "" | quote }}
-  TEST_GEN_OPENAI_API_KEY: {{ .Values.tenjin-kairo.TEST_GEN_OPENAI_API_KEY | default "" | quote }}
+  VECTOR_STORE_ID: {{ .Values.tenjinkairo.VECTOR_STORE_ID | default "" | quote }}
+  TEST_GEN_INSTANCE: {{ .Values.tenjinkairo.TEST_GEN_INSTANCE | default "" | quote }}
+  TEST_GEN_OPENAI_API_KEY: {{ .Values.tenjinkairo.TEST_GEN_OPENAI_API_KEY | default "" | quote }}
 {{- end }}

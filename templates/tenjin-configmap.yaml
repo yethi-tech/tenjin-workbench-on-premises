@@ -16,15 +16,15 @@ data:
   TENJIN_ELASTIC_SECURETYPE: "{{ .Values.environment.ELASTIC_SECURETYPE | default "http" }}"
 
   # Tenjin Core
-  TENJIN_DEFAULT_USER_PASSWORD: "{{ .Values.tenjin-core.TENJIN_DEFAULT_USER_PASSWORD | default "Welcome@2025" }}"
-  TENJIN_BASE_URL: "{{ .Values.tenjin-core.TENJIN_BASE_URL | default "http://localhost" }}"
-  TENJIN_ALLOWED_URL: "{{ .Values.tenjin-core.TENJIN_ALLOWED_URL | default "http://localhost" }}"
+  TENJIN_DEFAULT_USER_PASSWORD: "{{ .Values.tenjincore.TENJIN_DEFAULT_USER_PASSWORD | default "Welcome@2025" }}"
+  TENJIN_BASE_URL: "{{ .Values.tenjincore.TENJIN_BASE_URL | default "http://localhost" }}"
+  TENJIN_ALLOWED_URL: "{{ .Values.tenjincore.TENJIN_ALLOWED_URL | default "http://localhost" }}"
   TENJIN.AI-HOST: http://{{ .Release.Name }}-copilot:8000
-  OPENAI_API_KEY: "{{ .Values.tenjin-core.OPENAI_API_KEY | default "[ENCRYPTION_KEY]" }}"
+  OPENAI_API_KEY: "{{ .Values.tenjincore.OPENAI_API_KEY | default "[ENCRYPTION_KEY]" }}"
 
   TENJIN_SCHEDULER_ENABLED: "Y"
   TENJIN_LONGPOLLING_SCHEDULER_ENABLED: "Y"
-  TENJIN_SCHEDULER_RETENTION_DAYS: "{{ .Values.tenjin-core.TENJIN_SCHEDULER_RETENTION_DAYS | default "" }}"
+  TENJIN_SCHEDULER_RETENTION_DAYS: "{{ .Values.tenjincore.TENJIN_SCHEDULER_RETENTION_DAYS | default "" }}"
 
   TENJIN_ELASTIC_IMPORT_SIZE: "300"
   TENJIN_INDEX_THREADS: "10"
@@ -37,12 +37,12 @@ data:
   OPENAI_MODEL: "gpt-5.2"
   TENJIN_JACKSON_MAX_STRING_LENGTH: "20000"
 
-  TENJIN_SCHEDULER_CRON: "{{ .Values.tenjin-core.TENJIN_SCHEDULER_CRON | default "0 0 * * * ?" }}"
+  TENJIN_SCHEDULER_CRON: "{{ .Values.tenjincore.TENJIN_SCHEDULER_CRON | default "0 0 * * * ?" }}"
 
-  MAIL_PWD: "{{ .Values.tenjin-core.MAIL_PWD | default "" }}"
+  MAIL_PWD: "{{ .Values.tenjincore.MAIL_PWD | default "" }}"
 
   TENJIN_SCHEDULER_AWAIT_TERMINATION_ENABLED: "true"
   TENJIN_SCHEDULER_AWAIT_TERMINATION_PERIOD: "180"
 
-  COOKIE_SECURE: "{{ .Values.tenjin-core.COOKIE_SECURE | default "false" }}"
-  SSL_ENABLED: "{{ .Values.tenjin-core.SSL_ENABLED | default "false" }}"
+  COOKIE_SECURE: "{{ .Values.tenjincore.COOKIE_SECURE | default "false" }}"
+  SSL_ENABLED: "{{ .Values.tenjincore.SSL_ENABLED | default "false" }}"
