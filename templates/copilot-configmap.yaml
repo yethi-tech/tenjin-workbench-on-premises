@@ -11,13 +11,13 @@ data:
   DB_USER: {{ .Values.environment.POSTGRES_USER | default "postgres" | quote }}
   DB_PASSWORD: {{ .Values.environment.POSTGRES_PASSWORD | default "postgres_pass" | quote }}
   DB_PORT: "5432"
-  DB_SCHEMA: "public"
+  DB_SCHEMA: {{ .Values.environment.DB_SCHEMA | default "public" | quote }}
   DB_NAME: {{ .Values.environment.POSTGRES_DB | default "tenjin" | quote }}
 
   TENJIN_URL: "http://{{ .Release.Name }}-tenjin-core:8080"
 
-  OPENAI_API_KEY: ""
-  LANGSMITH_API_KEY: ""
+  OPENAI_API_KEY: {{ .Values.tenjinkairo.OPENAI_API_KEY | default "" | quote }}
+  LANGSMITH_API_KEY: {{ .Values.tenjinkairo.LANGSMITH_API_KEY | default "" | quote }}
 
   LANGSMITH_PROJECT: "tenjin-copilot"
   LANGSMITH_TRACING_V2: "true"
@@ -29,6 +29,6 @@ data:
   ASSISTANT_INTELLIGENCE_MODEL: "gpt-5.2"
   AI_PROVIDER: "openai"
 
-  VECTOR_STORE_ID: ""
-  TEST_GEN_INSTANCE: ""
-  TEST_GEN_OPENAI_API_KEY: ""
+  VECTOR_STORE_ID: {{ .Values.tenjinkairo.VECTOR_STORE_ID | default "" | quote }}
+  TEST_GEN_INSTANCE: {{ .Values.tenjinkairo.TEST_GEN_INSTANCE | default "" | quote }}
+  TEST_GEN_OPENAI_API_KEY: {{ .Values.tenjinkairo.TEST_GEN_OPENAI_API_KEY | default "" | quote }}
