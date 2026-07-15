@@ -14,7 +14,8 @@ elasticsearch:
     storageClassName: standard
     size: 5Gi
 postgres:
-  image: ""
+  enabled: true
+  image: "postgres:15"
   persistence:
     size: 10Gi # Storage size
     accessModes: ReadWriteOnce # Access mode
