@@ -2,12 +2,22 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-configmaptenjin
+
 data:
+
+{{- if eq .Values.database.type "postgres" }}
   # PostgreSQL
   SPRING_DATASOURCE_DRIVER_CLASS_NAME: "org.postgresql.Driver"
-  SPRING_DATASOURCE_URL: "jdbc:postgresql://{{ .Release.Name }}-postgres:5432/{{ .Values.environment.POSTGRES_DB | default "" }}"
-  SPRING_DATASOURCE_USERNAME: "{{ .Values.environment.POSTGRES_USER | default "" }}"
-  SPRING_DATASOURCE_PASSWORD: "{{ .Values.environment.POSTGRES_PASSWORD | default "" }}"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://{{ .Release.Name }}-postgres:5432/{{ .Values.environment.POSTGRES_DB }}"
+  SPRING_DATASOURCE_USERNAME: "{{ .Values.environment.POSTGRES_USER }}"
+  SPRING_DATASOURCE_PASSWORD: "{{ .Values.environment.POSTGRES_PASSWORD }}"
+{{- else if eq .Values.database.type "oracle" }}
+  # Oracle
+   SPRING_DATASOURCE_DRIVER_CLASS_NAME: "oracle.jdbc.OracleDriver"
+   SPRING_DATASOURCE_URL: "jdbc:oracle:thin:@//{{ .Values.environment.ORACLE_HOST }}:{{ .Values.environment.ORACLE_PORT }}/{{ .Values.environment.ORACLE_SERVICE }}"
+   SPRING_DATASOURCE_USERNAME: "{{ .Values.environment.ORACLE_USER }}"
+   SPRING_DATASOURCE_PASSWORD: "{{ .Values.environment.ORACLE_PASSWORD }}"
+{{- end }}
 
   # Elasticsearch
   TENJIN_ELASTIC_HOST: "{{ .Release.Name }}-elasticsearch"
@@ -19,7 +29,7 @@ data:
   TENJIN_DEFAULT_USER_PASSWORD: "{{ .Values.tenjincore.TENJIN_DEFAULT_USER_PASSWORD | default "Welcome@2025" }}"
   TENJIN_BASE_URL: "{{ .Values.tenjincore.TENJIN_BASE_URL | default "http://localhost" }}"
   TENJIN_ALLOWED_URL: "{{ .Values.tenjincore.TENJIN_ALLOWED_URL | default "http://localhost" }}"
-  TENJIN.AI-HOST: http://{{ .Release.Name }}-copilot:8000
+  TENJIN.AI-HOST: "http://{{ .Release.Name }}-copilot:8000"
   OPENAI_API_KEY: "{{ .Values.tenjincore.OPENAI_API_KEY | default "[ENCRYPTION_KEY]" }}"
 
   TENJIN_SCHEDULER_ENABLED: "Y"
@@ -33,7 +43,8 @@ data:
   TENJIN_INDEX_QUEUE_CAPACITY: "200"
   TENJIN_INDEX_RETRY_DELAY: "1000"
 
-  tenjin.copilot.service.url: http://{{ .Release.Name }}-copilot:8000
+  tenjin.copilot.service.url: "http://{{ .Release.Name }}-copilot:8000"
+
   OPENAI_MODEL: "gpt-5.2"
   TENJIN_JACKSON_MAX_STRING_LENGTH: "20000"
 

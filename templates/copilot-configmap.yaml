@@ -6,13 +6,26 @@ metadata:
     app: copilot
 
 data:
+
+{{- if eq .Values.database.type "postgres" }}
   DB_TYPE: "postgres"
   DB_HOST: "{{ .Release.Name }}-postgres"
+  DB_PORT: "5432"
   DB_USER: {{ .Values.environment.POSTGRES_USER | default "postgres" | quote }}
   DB_PASSWORD: {{ .Values.environment.POSTGRES_PASSWORD | default "postgres_pass" | quote }}
-  DB_PORT: "5432"
-  DB_SCHEMA: {{ .Values.environment.DB_SCHEMA | default "public" | quote }}
   DB_NAME: {{ .Values.environment.POSTGRES_DB | default "tenjin" | quote }}
+  DB_SCHEMA: {{ .Values.environment.DB_SCHEMA | default "public" | quote }}
+
+{{- else if eq .Values.database.type "oracle" }}
+  DB_TYPE: "oracle"
+  DB_HOST: {{ .Values.environment.ORACLE_HOST | quote }}
+  DB_PORT: {{ .Values.environment.ORACLE_PORT | default "1521" | quote }}
+  DB_USER: {{ .Values.environment.ORACLE_USER | quote }}
+  DB_PASSWORD: {{ .Values.environment.ORACLE_PASSWORD | quote }}
+  DB_NAME: {{ .Values.environment.ORACLE_SERVICE | quote }}
+  DB_SCHEMA: {{ .Values.environment.ORACLE_USER | quote }}
+
+{{- end }}
 
   TENJIN_URL: "http://{{ .Release.Name }}-tenjin-core:8080"
 

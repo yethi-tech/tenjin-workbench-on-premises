@@ -1,10 +1,14 @@
+database:
+  type: postgres # postgres | oracle
+
 tenjin:
   persistence:
-    size: "6Gi" # Size of the storage
-    storageClassName: "standard" # Name of the storage class (adjust based on your cluster)
+    size: "6Gi"
+    storageClassName: standard
   service:
     type: NodePort
     port: 8080
+
 elasticsearch:
   config:
     bootstrap_memory_lock: true
@@ -13,19 +17,32 @@ elasticsearch:
     accessModes: ReadWriteOnce
     storageClassName: standard
     size: 5Gi
+
 postgres:
   enabled: true
   image: "postgres:15"
   persistence:
-    size: 10Gi # Storage size
-    accessModes: ReadWriteOnce # Access mode
-    storageClassName: standard # StorageClass for dynamic provisioning
+    size: 10Gi
+    accessModes: ReadWriteOnce
+    storageClassName: standard
+
 environment:
+  # PostgreSQL
   POSTGRES_DB: tenjin
   POSTGRES_USER: yethi
   POSTGRES_PASSWORD: Yethi123
-  ORACLE_USER: tenjin
-  ORACLE_PASSWORD: tenjin
+
+  # Oracle
+  ORACLE_HOST: ""
+  ORACLE_PORT: "1521"
+  ORACLE_SERVICE: ""
+  ORACLE_USER: ""
+  ORACLE_PASSWORD: ""
+
+  # Elasticsearch
+  ELASTIC_PORT: "9200"
+  ELASTIC_USERNAME: "elastic"
+  ELASTIC_SECURETYPE: "http"
 
 tenjinkairo:
   image: "registry.gitlab.com/yethi/rnd/gen-ai/copilot-service/tenjin-copilot-service:4.17.2"
@@ -45,14 +62,13 @@ tenjincore:
   TENJIN_SCHEDULER_RETENTION_DAYS: ""
   TENJIN_SCHEDULER_CRON: ""
   MAIL_PWD: ""
-  COOKIE_SECURE: ""
-  SSL_ENABLED: ""
+  COOKIE_SECURE: "false"
+  SSL_ENABLED: "false"
 
 pgadmin:
-  image: dpage/pgadmin4:8.5
+  image: "dpage/pgadmin4:8.5"
   email: admin@yethi.in
   password: admin123
-
   persistence:
     accessMode: ReadWriteOnce
     size: 2Gi
