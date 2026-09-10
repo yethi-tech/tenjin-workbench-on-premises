@@ -41,6 +41,8 @@ spec:
         - name: wikis
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-copilot-wikis-pvc
+      imagePullSecrets:
+        - name: gitlab-auth
 
 ---
 apiVersion: v1

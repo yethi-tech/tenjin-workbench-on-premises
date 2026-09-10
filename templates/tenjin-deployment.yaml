@@ -17,6 +17,7 @@ spec:
       containers:
         - name: tenjin-core
           image: {{ .Values.tenjincore.image | default "registry.yethi.in/products/tenjin-workbench/tenjin-workbench:dev-te-8091--latest" }}
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           envFrom:
