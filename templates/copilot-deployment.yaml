@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: copilot
-          image: {{ .Values.tenjinkairo.image | default "registry.gitlab.com/yethi/rnd/gen-ai/copilot-service/tenjin-copilot-service:4.17.2" }}
+          image: {{ .Values.tenjinkairo.image | default "registry.yethi.in/products/tenjin-workbench/copilot-service:epic-te-8091" }}
           imagePullPolicy: Always
 
           ports:
@@ -32,3 +32,25 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-copilot-config
+
+          volumeMounts:
+            - name: wikis
+              mountPath: /app/data/wikis
+
+      volumes:
+        - name: wikis
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-copilot-wikis-pvc
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-copilot-wikis-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: standard
+  resources:
+    requests:
+      storage: 10Gi
