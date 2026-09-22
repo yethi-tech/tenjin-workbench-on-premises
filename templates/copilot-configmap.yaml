@@ -41,6 +41,8 @@ data:
   DOCS_INTELLIGENCE_MODEL: "gpt-5.2"
   ASSISTANT_INTELLIGENCE_MODEL: "gpt-5.2"
   AI_PROVIDER: "openai"
+  EMBEDDING_PROVIDER: "huggingface"
+  EMBEDDING_MODEL: "nomic-ai/modernbert-embed-base"
 
   VECTOR_STORE_ID: {{ .Values.tenjinkairo.VECTOR_STORE_ID | default "" | quote }}
   TEST_GEN_INSTANCE: {{ .Values.tenjinkairo.TEST_GEN_INSTANCE | default "" | quote }}
