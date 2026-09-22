@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: tenjin-db
-          image: {{ .Values.postgres.image | default "postgres:13" }}
+          image: {{ .Values.postgres.image | default "pgvector/pgvector:pg17-trixie" }}
           ports:
             - containerPort: 5432
           envFrom:

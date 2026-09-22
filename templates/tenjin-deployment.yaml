@@ -18,20 +18,26 @@ spec:
         - name: tenjin-core
           image: {{ .Values.tenjincore.image | default "registry.yethi.in/products/tenjin-workbench/tenjin-workbench:dev-te-8091--latest" }}
           imagePullPolicy: Always
+
           ports:
             - containerPort: 8080
+
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-configmaptenjin
+
           volumeMounts:
             - name: tenjin-data-volume
               mountPath: /root
+
       volumes:
         - name: tenjin-data-volume
           persistentVolumeClaim:
             claimName: tenjin-data-volume
+
       imagePullSecrets:
         - name: gitlab-auth
+
       initContainers:
         - name: wait-for-dependencies
           image: busybox
@@ -39,10 +45,12 @@ spec:
             - "/bin/sh"
             - "-c"
             - >
-              until nc -zv {{ .Release.Name }}-elasticsearch 9200 && nc -zv {{ .Release.Name }}-postgres 5432; do
+              until nc -zv {{ .Release.Name }}-elasticsearch 9200 &&
+              nc -zv {{ .Release.Name }}-postgres 5432; do
                 echo "Waiting for dependencies to be available..."
                 sleep 5
               done
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -54,8 +62,10 @@ metadata:
     "helm.sh/resource-policy": "keep"
 spec:
   accessModes:
-    - ReadWriteOnce
+    {{- toYaml .Values.tenjin.persistence.accessModes | nindent 4 }}
+
   resources:
     requests:
       storage: {{ .Values.tenjin.persistence.size | default "5Gi" }}
-  storageClassName: {{ .Values.tenjin.persistence.storageClassName | default "standard" }}
+
+  storageClassName: {{ .Values.tenjin.persistence.storageClassName | default "standard" | quote }}

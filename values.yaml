@@ -3,8 +3,10 @@ database:
 
 tenjin:
   persistence:
+    accessModes:
+      - ReadWriteMany # ReadWriteOnce 
     size: "6Gi"
-    storageClassName: standard
+    storageClassName: <nfs-storageclassname>
   service:
     type: NodePort
     port: 8080
@@ -14,17 +16,17 @@ elasticsearch:
     bootstrap_memory_lock: true
     ES_JAVA_OPTS: "-Xms512m -Xmx2G"
   persistence:
-    accessModes: ReadWriteOnce
-    storageClassName: standard
+    accessModes: ReadWriteMany
+    storageClassName: <nfs-storageclassname>
     size: 5Gi
 
 postgres:
   enabled: true
-  image: "postgres:15"
+  image: "pgvector/pgvector:pg17-trixie"
   persistence:
     size: 10Gi
-    accessModes: ReadWriteOnce
-    storageClassName: standard
+    accessModes: ReadWriteMany
+    storageClassName: <nfs-storageclassname>
 
 environment:
   # PostgreSQL
@@ -51,6 +53,10 @@ tenjinkairo:
   TEST_GEN_OPENAI_API_KEY: ""
   OPENAI_API_KEY: ""
   LANGSMITH_API_KEY: ""
+  storage:
+    size: 10Gi
+    accessMode: ReadWriteMany
+    storageClassName: <nfs-storageclassname>
 
 tenjincore:
   image: "registry.yethi.in/products/tenjin-workbench/tenjin-workbench:dev-te-8091--latest"

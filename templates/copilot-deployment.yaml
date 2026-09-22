@@ -51,8 +51,8 @@ metadata:
   name: {{ .Release.Name }}-copilot-wikis-pvc
 spec:
   accessModes:
-    - ReadWriteOnce
-  storageClassName: standard
+    - {{ .Values.tenjinkairo.storage.accessMode }}
+  storageClassName: {{ .Values.tenjinkairo.storage.storageClassName | quote }}
   resources:
     requests:
-      storage: 10Gi
+      storage: {{ .Values.tenjinkairo.storage.size }}
