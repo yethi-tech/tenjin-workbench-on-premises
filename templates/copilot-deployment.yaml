@@ -4,15 +4,19 @@ metadata:
   name: {{ .Release.Name }}-copilot
   labels:
     app: copilot
+
 spec:
   replicas: 1
+
   selector:
     matchLabels:
       app: copilot
+
   template:
     metadata:
       labels:
         app: copilot
+
     spec:
       containers:
         - name: copilot
@@ -21,6 +25,7 @@ spec:
 
           ports:
             - containerPort: 8000
+              protocol: TCP
 
           resources:
             requests:
@@ -34,26 +39,24 @@ spec:
                 name: {{ .Release.Name }}-copilot-config
 
           volumeMounts:
-            - name: wikis
+            - name: copilot-data
               mountPath: /app/data/wikis
-            - name: generated-artifacts
+              subPath: wikis
+
+            - name: copilot-data
               mountPath: /app/generated_artifacts
-            - name: uploads
+              subPath: generated_artifacts
+
+            - name: copilot-data
               mountPath: /app/uploads
-            - name: logs
+              subPath: uploads
+
+            - name: copilot-data
               mountPath: /app/logs
+              subPath: logs
 
       volumes:
-        - name: wikis
-          persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-copilot-wikis-pvc
-        - name: generated-artifacts
-          persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-copilot-wikis-pvc
-        - name: uploads
-          persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-copilot-wikis-pvc
-        - name: logs
+        - name: copilot-data
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-copilot-wikis-pvc
 
@@ -67,8 +70,8 @@ metadata:
   name: {{ .Release.Name }}-copilot-wikis-pvc
 spec:
   accessModes:
-    - {{ .Values.tenjinkairo.storage.accessMode }}
-  storageClassName: {{ .Values.tenjinkairo.storage.storageClassName | quote }}
+    - {{ .Values.tenjinkairo.storage.accessMode | default "ReadWriteMany" | quote }}
+  storageClassName: {{ .Values.tenjinkairo.storage.storageClassName | default "nfs-client" | quote }}
   resources:
     requests:
-      storage: {{ .Values.tenjinkairo.storage.size }}
+      storage: {{ .Values.tenjinkairo.storage.size | default "10Gi" | quote }}
