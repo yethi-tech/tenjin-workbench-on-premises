@@ -36,11 +36,27 @@ spec:
           volumeMounts:
             - name: wikis
               mountPath: /app/data/wikis
+            - name: generated-artifacts
+              mountPath: /app/generated_artifacts
+            - name: uploads
+              mountPath: /app/uploads
+            - name: logs
+              mountPath: /app/logs
 
       volumes:
         - name: wikis
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-copilot-wikis-pvc
+        - name: generated-artifacts
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-copilot-wikis-pvc
+        - name: uploads
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-copilot-wikis-pvc
+        - name: logs
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-copilot-wikis-pvc
+
       imagePullSecrets:
         - name: gitlab-auth
 

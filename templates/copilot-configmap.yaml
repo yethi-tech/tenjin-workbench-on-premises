@@ -1,3 +1,4 @@
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -6,7 +7,6 @@ metadata:
     app: copilot
 
 data:
-
 {{- if eq .Values.database.type "postgres" }}
   DB_TYPE: "postgres"
   DB_HOST: "{{ .Release.Name }}-postgres"
@@ -15,7 +15,6 @@ data:
   DB_PASSWORD: {{ .Values.environment.POSTGRES_PASSWORD | default "postgres_pass" | quote }}
   DB_NAME: {{ .Values.environment.POSTGRES_DB | default "tenjin" | quote }}
   DB_SCHEMA: {{ .Values.environment.DB_SCHEMA | default "public" | quote }}
-
 {{- else if eq .Values.database.type "oracle" }}
   DB_TYPE: "oracle"
   DB_HOST: {{ .Values.environment.ORACLE_HOST | quote }}
@@ -24,26 +23,40 @@ data:
   DB_PASSWORD: {{ .Values.environment.ORACLE_PASSWORD | quote }}
   DB_NAME: {{ .Values.environment.ORACLE_SERVICE | quote }}
   DB_SCHEMA: {{ .Values.environment.ORACLE_USER | quote }}
-
 {{- end }}
 
   TENJIN_URL: "http://{{ .Release.Name }}-tenjin-core:8080"
 
   OPENAI_API_KEY: {{ .Values.tenjinkairo.OPENAI_API_KEY | default "" | quote }}
-  LANGSMITH_API_KEY: {{ .Values.tenjinkairo.LANGSMITH_API_KEY | default "" | quote }}
+  LANGFUSE_SECRET_KEY: {{ .Values.tenjinkairo.LANGFUSE_SECRET_KEY | default "" | quote }}
+  LANGFUSE_PUBLIC_KEY: {{ .Values.tenjinkairo.LANGFUSE_PUBLIC_KEY | default "" | quote }}
+  LANGFUSE_BASE_URL: {{ .Values.tenjinkairo.LANGFUSE_BASE_URL | default "" | quote }}
 
-  LANGSMITH_PROJECT: "tenjin-copilot"
-  LANGSMITH_TRACING_V2: "true"
 
-  TENJIN_AGENT_MODEL: "gpt-5.2"
-  REQUIREMENTS_INTELLIGENCE_MODEL: "gpt-5.2"
-  TEST_DESIGN_INTELLIGENCE_MODEL: "gpt-5.2"
-  DOCS_INTELLIGENCE_MODEL: "gpt-5.2"
-  ASSISTANT_INTELLIGENCE_MODEL: "gpt-5.2"
-  AI_PROVIDER: "openai"
+  TENJIN_AGENT_MODEL: {{ .Values.tenjinkairo.TENJIN_AGENT_MODEL | default "gpt-5.2" | quote }}
+  AI_PROVIDER: {{ .Values.tenjinkairo.AI_PROVIDER | default "openai" | quote }}
   EMBEDDING_PROVIDER: "huggingface"
   EMBEDDING_MODEL: "nomic-ai/modernbert-embed-base"
 
   VECTOR_STORE_ID: {{ .Values.tenjinkairo.VECTOR_STORE_ID | default "" | quote }}
   TEST_GEN_INSTANCE: {{ .Values.tenjinkairo.TEST_GEN_INSTANCE | default "" | quote }}
   TEST_GEN_OPENAI_API_KEY: {{ .Values.tenjinkairo.TEST_GEN_OPENAI_API_KEY | default "" | quote }}
+
+  WIKI_INGEST_MODEL: {{ .Values.tenjinkairo.WIKI_INGEST_MODEL | default "" | quote }}
+  AZURE_OPENAI_ENDPOINT: {{ .Values.tenjinkairo.AZURE_OPENAI_ENDPOINT | default "" | quote }}
+  AZURE_OPENAI_API_KEY: {{ .Values.tenjinkairo.AZURE_OPENAI_API_KEY | default "" | quote }}
+  AZURE_OPENAI_API_VERSION: {{ .Values.tenjinkairo.AZURE_OPENAI_API_VERSION | default "" | quote }}
+  OPENAI_API_VERSION: {{ .Values.tenjinkairo.OPENAI_API_VERSION | default "" | quote }}
+  AZURE_OPENAI_DEPLOYMENT: {{ .Values.tenjinkairo.AZURE_OPENAI_DEPLOYMENT | default "" | quote }}
+
+  TEST_GEN_AZURE_OPENAI_DEPLOYMENT: {{ .Values.tenjinkairo.TEST_GEN_AZURE_OPENAI_DEPLOYMENT | default "" | quote }}
+  TEST_GEN_AZURE_OPENAI_MODEL: {{ .Values.tenjinkairo.TEST_GEN_AZURE_OPENAI_MODEL | default "" | quote }}
+  TEST_GEN_AZURE_OPENAI_TEMPERATURE: {{ .Values.tenjinkairo.TEST_GEN_AZURE_OPENAI_TEMPERATURE | default "0.0" | quote }}
+
+  HEALING_LLM_PROVIDER: {{ .Values.tenjinkairo.HEALING_LLM_PROVIDER | default "" | quote }}
+  HEALING_LLM_MODEL: {{ .Values.tenjinkairo.HEALING_LLM_MODEL | default "" | quote }}
+
+  VISUAL_COMPARE_LLM_PROVIDER: {{ .Values.tenjinkairo.VISUAL_COMPARE_LLM_PROVIDER | default "" | quote }}
+  VISUAL_COMPARE_LLM_MODEL: {{ .Values.tenjinkairo.VISUAL_COMPARE_LLM_MODEL | default "" | quote }}
+
+  FILE_SEARCH_PROVIDER: {{ .Values.tenjinkairo.FILE_SEARCH_PROVIDER | default "" | quote }}

@@ -48,11 +48,42 @@ environment:
 
 tenjinkairo:
   image: "registry.yethi.in/products/tenjin-workbench/copilot-service:epic-te-8091"
+
+  # Existing configuration
   VECTOR_STORE_ID: ""
   TEST_GEN_INSTANCE: ""
   TEST_GEN_OPENAI_API_KEY: ""
   OPENAI_API_KEY: ""
   LANGSMITH_API_KEY: ""
+
+  # Wiki ingestion - Azure OpenAI
+  WIKI_INGEST_MODEL: ""
+  AZURE_OPENAI_ENDPOINT: ""
+  AZURE_OPENAI_API_KEY: ""
+  AZURE_OPENAI_API_VERSION: ""
+  OPENAI_API_VERSION: ""
+  AZURE_OPENAI_DEPLOYMENT: ""
+
+  # Test generation - Azure OpenAI
+  TEST_GEN_AZURE_OPENAI_DEPLOYMENT: ""
+  TEST_GEN_AZURE_OPENAI_MODEL: ""
+  TEST_GEN_AZURE_OPENAI_TEMPERATURE: "0.0"
+
+  # Healing LLM
+  HEALING_LLM_PROVIDER: ""
+  HEALING_LLM_MODEL: ""
+
+  # Visual comparison LLM
+  VISUAL_COMPARE_LLM_PROVIDER: ""
+  VISUAL_COMPARE_LLM_MODEL: ""
+
+  # File search
+  FILE_SEARCH_PROVIDER: ""
+  LANGFUSE_SECRET_KEY: ""
+  LANGFUSE_PUBLIC_KEY: ""
+  LANGFUSE_BASE_URL: ""
+
+  # Storage configuration
   storage:
     size: 10Gi
     accessMode: ReadWriteMany
